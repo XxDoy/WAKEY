@@ -20,7 +20,8 @@ html {
 /* Kontainer konten utama di dalam setiap section */
 .hero-content,
 .section-content-wrapper,
-.product-content-container {
+.product-layout-container {
+	/* Menggunakan kelas baru untuk produk */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -35,9 +36,9 @@ html {
 .main-content-padding {
 	padding: 2rem;
 }
-.product-content-container {
-	padding: 2rem;
-	gap: 1.5rem;
+.product-layout-container {
+	padding: 2rem; /* Padding dasar untuk mobile */
+	gap: 1.5rem; /* Gap dasar untuk mobile, antara gambar dan teks */
 }
 
 /* Styling spesifik untuk hero-section */
@@ -124,18 +125,18 @@ html {
 	.main-content-padding {
 		padding: 3rem 2.5rem;
 	}
-	.product-content-container {
-		padding: 3.5rem 4rem; /* Padding lebih besar untuk produk */
-		gap: 3.5rem; /* Gap lebih besar untuk produk */
-		flex-direction: row; /* Pastikan row di desktop */
-		align-items: center; /* Pusatkan item secara vertikal */
+	.product-layout-container {
+		padding: 3.5rem 4rem;
+		gap: 3.5rem;
+		flex-direction: row;
+		align-items: center;
 	}
 }
 @media (min-width: 1024px) {
 	.main-content-padding {
 		padding: 3.5rem 3rem;
 	}
-	.product-content-container {
+	.product-layout-container {
 		padding: 4rem 5rem;
 		gap: 4rem;
 	}
@@ -147,7 +148,7 @@ html {
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	max-width: 320px; /* Max-width gambar di mobile */
+	max-width: 320px;
 	margin-bottom: 1.5rem;
 }
 .product-text-wrapper {
@@ -157,33 +158,28 @@ html {
 
 @media (min-width: 768px) {
 	.product-image-wrapper {
-		width: 45%; /* Persentase lebar untuk gambar */
-		max-width: 450px; /* Max-width gambar lebih besar */
+		width: 45%;
+		max-width: 500px; /* Gambar lebih besar */
 		flex-shrink: 0;
 		margin-bottom: 0;
-		margin-right: 2rem;
+		margin-right: 3rem; /* Jarak kanan dari gambar lebih besar */
 	}
 	.product-text-wrapper {
-		width: 55%; /* Sisa lebar untuk teks */
+		width: 55%;
 		display: flex;
 		flex-direction: column;
-		justify-content: center; /* Memusatkan teks secara vertikal */
+		justify-content: center;
 	}
 	.location-section .section-text-content,
 	.location-section .flex-shrink-0 {
 		flex: 1;
-		align-self: center; /* Agar sejajar dengan teks jika tingginya beda */
-	}
-	.location-section .image-container-sejajar img {
-		/* Pastikan gambar di lokasi juga responsif */
-		max-width: 100%;
-		height: auto;
+		align-self: center;
 	}
 }
 
 .product-detail-image {
 	max-width: 100%;
-	max-height: 70vh; /* Memungkinkan gambar lebih tinggi */
+	max-height: 70vh;
 	border-radius: 12px;
 	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 	object-fit: contain;
@@ -249,7 +245,7 @@ html {
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
-	right: 1rem; /* 16px */
+	right: 1rem;
 	z-index: 100;
 	display: flex;
 	flex-direction: column;
@@ -275,7 +271,7 @@ html {
 	border-radius: 50%;
 	filter: blur(1px);
 	opacity: 0.7;
-	transition: all 0.2s ease-out; /* Transisi lebih cepat */
+	transition: all 0.15s ease-out; /* Transisi lebih cepat */
 	order: 2;
 	position: absolute;
 	right: 6px;
@@ -292,12 +288,12 @@ html {
 	font-size: 12px;
 	font-weight: 500;
 	white-space: nowrap;
-	margin-right: 24px; /* Jarak label dari tepi kanan (memberi ruang untuk dot) */
+	margin-right: 22px;
 	opacity: 0;
 	visibility: hidden;
 	transform: translateX(8px);
-	transition: opacity 0.2s ease-out, visibility 0s linear 0.2s,
-		transform 0.2s ease-out; /* Transisi lebih cepat */
+	transition: opacity 0.15s ease-out, visibility 0s linear 0.15s,
+		transform 0.15s ease-out; /* Transisi lebih cepat */
 	order: 1;
 }
 
@@ -309,31 +305,14 @@ html {
 }
 
 .nav-dot.active .dot-circle {
-	opacity: 0 !important; /* Paksa sembunyi */
-	visibility: hidden !important; /* Paksa sembunyi */
+	opacity: 0 !important;
+	visibility: hidden !important;
 	transform: translateY(-50%) scale(0.5) !important;
 }
 
 .nav-dot.active .dot-label {
-	opacity: 1 !important; /* Paksa tampil */
-	visibility: visible !important; /* Paksa tampil */
+	opacity: 1 !important;
+	visibility: visible !important;
 	transform: translateX(0) !important;
 	transition-delay: 0.05s !important;
-}
-
-/* Tombol Placeholder (Pengganti Gemini) */
-.gemini-button-placeholder {
-	background-color: #6c757d;
-	color: white;
-	padding: 0.6rem 1.2rem;
-	border-radius: 0.5rem;
-	font-weight: 600;
-	margin-top: 1.25rem;
-	transition: background-color 0.3s ease;
-	cursor: pointer;
-	border: none;
-	font-size: 0.9rem;
-}
-.gemini-button-placeholder:hover {
-	background-color: #5a6268;
 }

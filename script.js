@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 							y: -50,
 							duration: 0.4,
 							ease: "power2.in",
-						}); // Durasi lebih cepat
+						});
 				});
 
 				// Animasi teks konten utama masuk
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 								ease: "power2.out",
 								delay: 0.3,
 							}
-						); // Durasi lebih cepat
+						);
 				});
 
 				// Update Navigasi Kustom - Transisi Keluar
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		);
 	}
 
-	// Hapus fungsionalitas Gemini, ganti dengan alert placeholder
+	// Tombol placeholder (pengganti Gemini)
 	const poeticDescBtnPlaceholder = document.getElementById(
 		"generate-poetic-desc-btn-placeholder"
 	);
