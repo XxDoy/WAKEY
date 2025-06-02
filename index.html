@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Wakey! Snack Bar - Hold You Steady</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css"
+		/>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="fullpage">
+			<div class="section hero-section" data-anchor="beranda">
+				<div class="logo-container">
+					<img
+						src="images/Wakey! Transparent BG Crop.png"
+						alt="Logo Wakey!"
+						class="logo"
+						onerror="this.onerror=null; this.src='https://placehold.co/200x60/121214/FFFFFF?text=Wakey!+Logo';"
+					/>
+				</div>
+				<div class="hero-content">
+					<h1
+						class="hero-main-title text-4xl md:text-6xl font-bold leading-tight"
+					>
+						WAKEY!
+					</h1>
+					<p class="hero-subtitle mt-2 text-xl md:text-3xl text-gray-300">
+						HOLD YOU STEADY
+					</p>
+					<img
+						src="images/ChatGPT Image May 16 2025 01_09_25 AM.jpg"
+						alt="Kemasan Wakey! Snack Bar"
+						class="hero-asset"
+						onerror="this.onerror=null; this.src='https://placehold.co/600x400/1a1a1d/FFFFFF?text=Wakey!+Snack+Bar';"
+					/>
+					<button
+						class="mt-4 bg-white text-gray-900 font-semibold py-3 px-6 md:px-8 rounded-lg shadow-lg hover:bg-gray-200 transition duration-300 text-base md:text-lg"
+					>
+						TEMUKAN KENIKMATANNYA
+					</button>
+				</div>
+			</div>
+
+			<div class="section product-detail-section" data-anchor="produk">
+				<div class="product-detail-content">
+					<div class="product-image-container">
+						<img
+							src="images/Coffee-Layered _Wakey!_ Snack Bar_edited_edited.jpg"
+							alt="Potongan Wakey! Snack Bar"
+							class="product-detail-image"
+							onerror="this.onerror=null; this.src='https://placehold.co/400x400/1f1f23/FFFFFF?text=Lapisan+Wakey!';"
+						/>
+					</div>
+					<div class="product-description">
+						<h2 class="product-title">Setiap Gigitan Penuh Energi</h2>
+						<div id="original-description-container">
+							<p>
+								Wakey! dirancang untuk menemani harimu yang padat. Dengan
+								kombinasi sempurna antara rasa dan energi, setiap lapisan
+								memberikan pengalaman unik yang tak terlupakan.
+							</p>
+							<ul>
+								<li>
+									Lapisan Karamel Lembut: Manis yang pas, meleleh di mulut.
+								</li>
+								<li>
+									Nougat Kopi Pilihan: Tekstur kenyal dengan aroma kopi asli.
+								</li>
+								<li>
+									Krispi Sereal Gurih: Memberikan sensasi renyah yang memuaskan.
+								</li>
+								<li>
+									Balutan Cokelat Premium: Melengkapi setiap gigitan dengan
+									kemewahan.
+								</li>
+							</ul>
+						</div>
+						<button id="generate-poetic-desc-btn" class="gemini-button">
+							✨ Hasilkan Deskripsi Puitis
+							<span class="loading-spinner" style="display: none"></span>
+						</button>
+						<div
+							id="poetic-description-output"
+							class="gemini-output"
+							style="display: none"
+						></div>
+						<button
+							class="mt-6 bg-yellow-500 text-gray-900 font-semibold py-3 px-6 md:px-8 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
+						>
+							LIHAT VARIAN RASA
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="section location-section" data-anchor="lokasi">
+				<div class="content-wrapper items-center justify-center text-center">
+					<div class="section-text-content text-center md:text-left">
+						<h2 class="section-title text-3xl md:text-4xl">Temukan Kami</h2>
+						<p class="mt-4 text-lg md:text-xl text-gray-300">
+							Wakey! Snack Bar tersedia di berbagai minimarket dan supermarket
+							terdekat di kota Anda. Kunjungi juga kafe partner kami untuk
+							menikmati Wakey! dengan secangkir kopi pilihan.
+						</p>
+						<p class="mt-2 text-gray-400">
+							Cek peta di bawah untuk menemukan lokasi penjualan terdekat!
+						</p>
+						<button
+							class="mt-6 bg-yellow-500 text-gray-900 font-semibold py-3 px-6 md:px-8 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
+						>
+							CARI LOKASI
+						</button>
+					</div>
+					<div class="mt-8 md:mt-0 md:ml-8 flex-shrink-0">
+						<img
+							src="https://placehold.co/400x300/2a2a2e/FFFFFF?text=Peta+Lokasi+Wakey!"
+							alt="Peta Lokasi Wakey!"
+							class="rounded-lg shadow-lg"
+						/>
+					</div>
+				</div>
+			</div>
+
+			<div class="section contact-section" data-anchor="kontak">
+				<div class="content-wrapper items-center justify-center text-center">
+					<div class="section-text-content text-center">
+						<h2 class="section-title text-3xl md:text-4xl">Hubungi Kami</h2>
+						<p class="mt-4 text-lg md:text-xl text-gray-300">
+							Punya pertanyaan, saran, atau ingin bermitra dengan Wakey!? Jangan
+							ragu untuk menghubungi kami.
+						</p>
+						<form id="contact-form" class="mt-8 max-w-md mx-auto">
+							<div class="mb-4">
+								<input
+									type="text"
+									id="contact-name"
+									placeholder="Nama Anda"
+									class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-yellow-500 outline-none"
+								/>
+							</div>
+							<div class="mb-4">
+								<input
+									type="email"
+									id="contact-email"
+									placeholder="Email Anda"
+									class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-yellow-500 outline-none"
+								/>
+							</div>
+							<div class="mb-4">
+								<textarea
+									id="contact-message"
+									placeholder="Pesan Anda..."
+									rows="4"
+									class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-yellow-500 outline-none"
+								></textarea>
+							</div>
+							<div class="flex items-center justify-between">
+								<button
+									type="submit"
+									class="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
+								>
+									KIRIM PESAN
+								</button>
+								<button
+									type="button"
+									id="assist-message-btn"
+									class="gemini-button"
+								>
+									✨ Bantu Tulis
+									<span class="loading-spinner" style="display: none"></span>
+								</button>
+							</div>
+							<div
+								id="assisted-message-output"
+								class="gemini-output mt-4"
+								style="display: none"
+							></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>

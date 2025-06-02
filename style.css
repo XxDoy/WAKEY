@@ -1,0 +1,284 @@
+/* Reset default browser margin/padding */
+body,
+html {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-family: "Inter", sans-serif;
+}
+
+/* Styling dasar untuk setiap section fullPage.js */
+.section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+	height: 100vh; /* Memastikan setiap section mengambil tinggi penuh viewport */
+}
+
+/* Styling spesifik untuk hero-section */
+.hero-section {
+	background-color: #121214;
+}
+.hero-section::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: radial-gradient(
+			ellipse 65% 85% at 0% 50%,
+			rgba(100, 70, 45, 0.45) 0%,
+			rgba(18, 18, 20, 0) 65%
+		),
+		radial-gradient(
+			ellipse 65% 85% at 100% 50%,
+			rgba(100, 70, 45, 0.45) 0%,
+			rgba(18, 18, 20, 0) 65%
+		);
+	z-index: 1;
+	pointer-events: none;
+}
+.hero-section::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilterSubtle'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch' seed='40'%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilterSubtle)'/%3E%3C/svg%3E");
+	opacity: 0.035;
+	z-index: 2;
+	pointer-events: none;
+}
+.hero-content {
+	position: relative;
+	z-index: 3;
+	color: white;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: auto;
+}
+.logo-container {
+	position: absolute;
+	top: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 4;
+}
+.logo {
+	max-height: 50px;
+	width: auto;
+}
+.hero-asset {
+	max-width: 70%;
+	max-height: 35vh;
+	margin-top: 1rem;
+	margin-bottom: 1.5rem;
+	object-fit: contain;
+	z-index: 3;
+}
+
+/* Styling untuk section lain */
+.product-detail-section {
+	background-color: #1f1f23;
+	color: white;
+	padding: 2rem;
+}
+.location-section {
+	background-color: #2a2a2e;
+	color: white;
+	padding: 2rem;
+}
+.contact-section {
+	background-color: #18181b;
+	color: white;
+	padding: 2rem;
+}
+
+.content-wrapper {
+	max-width: 800px;
+}
+
+.product-detail-content,
+.content-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	max-width: 1000px;
+	width: 100%;
+	height: auto;
+}
+@media (min-width: 768px) {
+	.product-detail-content,
+	.content-wrapper {
+		flex-direction: row;
+		gap: 2rem;
+	}
+	.logo {
+		max-height: 60px;
+	}
+}
+.product-image-container {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 400px;
+}
+.product-detail-image {
+	max-width: 100%;
+	max-height: 50vh;
+	border-radius: 12px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+	object-fit: contain;
+}
+.product-description,
+.section-text-content {
+	flex: 1;
+	text-align: left;
+	max-width: 500px;
+}
+.section-title,
+.product-title {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	color: #f39c12;
+}
+.product-description p,
+.section-text-content p {
+	font-size: 1rem;
+	line-height: 1.7;
+	margin-bottom: 1rem;
+}
+.product-description ul {
+	list-style: none;
+	padding: 0;
+}
+.product-description li {
+	font-size: 0.9rem;
+	margin-bottom: 0.5rem;
+	padding-left: 1.5rem;
+	position: relative;
+}
+.product-description li::before {
+	content: "☕";
+	position: absolute;
+	left: 0;
+	color: #f39c12;
+}
+
+/* Untuk memastikan teks terlihat sebelum GSAP mengambil alih */
+.hero-main-title,
+.hero-subtitle,
+.product-title,
+.section-title {
+	opacity: 1;
+}
+
+/* Navigasi Checkpoint */
+#fp-nav ul li {
+	margin: 18px 7px;
+}
+#fp-nav ul li a span {
+	background: rgba(255, 255, 255, 0.3) !important;
+	width: 10px !important;
+	height: 10px !important;
+	margin: -5px 0 0 -5px !important;
+	filter: blur(1px);
+	opacity: 0.6;
+	transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+#fp-nav ul li a:hover span {
+	background: rgba(255, 255, 255, 0.8) !important;
+	filter: blur(0px);
+	opacity: 1;
+	transform: scale(1.4);
+}
+#fp-nav ul li a.active span {
+	background: #f39c12 !important;
+	transform: scale(1.1);
+	opacity: 0 !important;
+	visibility: hidden !important;
+	filter: blur(0px);
+	transition: opacity 0.2s ease-out, visibility 0s linear 0.2s,
+		transform 0.2s ease-out, background 0.2s ease-out;
+}
+#fp-nav ul li .fp-tooltip {
+	color: #ffffff !important;
+	background: rgba(30, 30, 30, 0.7) !important;
+	backdrop-filter: blur(3px);
+	padding: 7px 15px !important;
+	border-radius: 5px !important;
+	font-size: 13px !important;
+	font-weight: 600;
+	top: 50% !important;
+	white-space: nowrap;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-50%) translateX(15px);
+	transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+		visibility 0s linear 0.4s, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+#fp-nav ul li.active .fp-tooltip.fp-right {
+	opacity: 1 !important;
+	visibility: visible !important;
+	transform: translateY(-50%) translateX(0px) !important;
+	transition-delay: 0.1s;
+	z-index: 1001;
+}
+
+/* Gemini API Feature Styling */
+.gemini-button {
+	background-color: #8a2be2; /* Warna ungu yang menarik */
+	color: white;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	font-weight: 600;
+	margin-top: 1rem;
+	transition: background-color 0.3s ease;
+	cursor: pointer;
+	border: none;
+	font-size: 0.9rem;
+}
+.gemini-button:hover {
+	background-color: #7b1fa2;
+}
+.gemini-output {
+	margin-top: 1rem;
+	padding: 1rem;
+	background-color: rgba(255, 255, 255, 0.05);
+	border-radius: 0.5rem;
+	text-align: left;
+	font-size: 0.9rem;
+	line-height: 1.6;
+	max-height: 200px;
+	overflow-y: auto;
+	white-space: pre-wrap;
+}
+.loading-spinner {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 3px solid rgba(255, 255, 255, 0.3);
+	border-radius: 50%;
+	border-top-color: #fff;
+	animation: spin 1s ease-in-out infinite;
+	margin-left: 8px;
+}
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
