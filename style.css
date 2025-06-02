@@ -3,20 +3,21 @@ body,
 html {
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+	overflow: hidden; /* Dikelola oleh fullPage.js jika verticalCentered:false */
 	font-family: "Inter", sans-serif;
 }
 
 /* Styling dasar untuk setiap section fullPage.js */
+/* Dengan verticalCentered: false, .section adalah target langsung untuk flex centering */
 .section {
 	display: flex;
 	flex-direction: column;
-	align-items: center; /* INI AKAN MEMUSATKAN ANAK LANGSUNGNYA SECARA HORIZONTAL */
-	justify-content: center; /* INI AKAN MEMUSATKAN ANAK LANGSUNGNYA SECARA VERTIKAL */
-	text-align: center; /* Untuk konten inline di dalamnya jika tidak di-override */
+	align-items: center; /* Memusatkan anak langsungnya (mis: .product-detail-content) secara horizontal */
+	justify-content: center; /* Memusatkan anak langsungnya (mis: .product-detail-content) secara vertikal */
+	text-align: center; /* Untuk konten inline di dalamnya, jika tidak di-override */
 	position: relative;
-	overflow: hidden;
-	height: 100vh;
+	/* overflow: hidden; /* Bisa diaktifkan jika ada masalah, tapi biasanya tidak perlu untuk fullPage */
+	/* height: 100vh; /* fullPage.js akan mengatur ini */
 }
 
 /* Styling spesifik untuk hero-section */
@@ -57,32 +58,29 @@ html {
 }
 
 /* Kontainer konten utama di dalam setiap section */
-/* .hero-content, .product-detail-content, .content-wrapper adalah anak langsung dari .section */
 .hero-content,
 .product-detail-content,
 .content-wrapper {
-	display: flex; /* Mengatur layout internalnya sendiri */
-	flex-direction: column; /* Default, akan diubah untuk desktop jika perlu */
-	align-items: center; /* Memusatkan item di dalamnya secara horizontal */
-	justify-content: center; /* Memusatkan item di dalamnya secara vertikal */
-	width: 100%; /* Mengambil lebar penuh hingga max-width */
-	height: auto; /* Tinggi menyesuaikan konten */
-	/* Padding ditambahkan via kelas Tailwind p-4 atau p-8 di HTML */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	max-width: 1000px; /* Default max-width, bisa di-override */
+	height: auto;
+	padding: 1rem; /* Padding dasar, bisa disesuaikan dengan p-4, p-8 dari Tailwind di HTML */
+	position: relative; /* Agar z-index bekerja jika perlu */
+	z-index: 3; /* Konten di atas efek background section */
 }
 
 .hero-content {
-	padding: 1rem; /* Padding spesifik untuk hero jika berbeda */
 	color: white;
-	position: relative; /* Untuk z-index jika diperlukan */
-	z-index: 3;
 }
 .product-detail-content {
-	max-width: 1000px;
-	/* Padding (p-4 md:p-8) sudah ada di HTML */
+	/* max-width: 1000px; sudah di atas */
 }
 .content-wrapper {
 	max-width: 800px;
-	/* Padding (p-4 md:p-8) sudah ada di HTML */
 }
 
 .logo-container {
@@ -90,7 +88,7 @@ html {
 	top: 2rem;
 	left: 50%;
 	transform: translateX(-50%);
-	z-index: 4;
+	z-index: 4; /* Di atas .hero-content jika .hero-content juga punya z-index */
 }
 .logo {
 	max-height: 50px;
@@ -102,7 +100,7 @@ html {
 	margin-top: 1rem;
 	margin-bottom: 1.5rem;
 	object-fit: contain;
-	z-index: 3;
+	/* z-index tidak perlu di sini jika .hero-content sudah punya z-index */
 }
 
 /* Styling untuk section lain */
@@ -125,8 +123,13 @@ html {
 	.content-wrapper {
 		flex-direction: row;
 		gap: 2rem;
-		/* justify-content: center; sudah ada di aturan dasar, akan memusatkan grup item jika total lebarnya < max-width */
-		/* align-items: center; sudah ada di aturan dasar, akan memusatkan item secara vertikal dalam baris */
+		/* align-items: center; sudah di aturan dasar, akan memusatkan item secara vertikal dalam baris */
+		/* justify-content: center; sudah di aturan dasar, akan memusatkan grup item jika total lebarnya < max-width */
+	}
+	.hero-content,
+	.product-detail-content,
+	.content-wrapper {
+		padding: 2rem; /* Padding lebih besar untuk desktop */
 	}
 	.logo {
 		max-height: 60px;
@@ -139,6 +142,7 @@ html {
 	align-items: center;
 	max-width: 400px;
 	width: 100%;
+	/* flex: 1; tidak lagi digunakan agar lebih mudah dipusatkan sebagai grup */
 }
 .product-detail-image {
 	max-width: 100%;
@@ -150,17 +154,19 @@ html {
 
 .product-description,
 .section-text-content {
-	text-align: left; /* Teks di dalam blok ini rata kiri */
+	text-align: left;
 	max-width: 500px;
 	width: 100%;
+	/* flex: 1; tidak lagi digunakan */
 }
+
+/* ... (sisa CSS untuk judul, teks, list, navigasi, dan Gemini tetap sama) ... */
 .section-title,
 .product-title {
 	font-size: 2rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
 	color: #f39c12;
-	/* text-align akan mengikuti parentnya atau default browser jika tidak di-override */
 }
 .product-description p,
 .section-text-content p {
@@ -189,10 +195,9 @@ html {
 .hero-subtitle,
 .product-title,
 .section-title {
-	opacity: 1; /* GSAP akan mengontrol ini saat animasi */
+	opacity: 1;
 }
 
-/* Navigasi Checkpoint */
 #fp-nav {
 	z-index: 1000 !important;
 }
@@ -247,7 +252,6 @@ html {
 	z-index: 1001;
 }
 
-/* Gemini API Feature Styling */
 .gemini-button {
 	background-color: #8a2be2;
 	color: white;

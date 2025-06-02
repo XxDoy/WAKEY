@@ -8,15 +8,15 @@ document.addEventListener("DOMContentLoaded", function () {
 		navigation: true,
 		navigationPosition: "right",
 		navigationTooltips: ["Beranda", "Produk", "Lokasi", "Kontak"],
-		showActiveTooltip: false, // Kita akan kontrol manual dengan GSAP dan CSS
+		showActiveTooltip: false,
 		anchors: ["beranda", "produk", "lokasi", "kontak"],
 		licenseKey: "OPEN-SOURCE-GPLV3-LICENSE",
+		verticalCentered: false, // Menonaktifkan pemusatan vertikal bawaan fullPage.js
 
 		onLeave: function (origin, destination, direction) {
 			const leavingSection = origin.item;
 			const enteringSection = destination.item;
 
-			// Animasi untuk elemen teks utama yang keluar
 			let leavingTextElements = [];
 			if (leavingSection.querySelector(".hero-main-title"))
 				leavingTextElements.push(
@@ -40,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
 					gsap.to(el, { opacity: 0, y: -60, duration: 0.6, ease: "power2.in" });
 			});
 
-			// Animasi untuk elemen teks utama yang masuk
 			let enteringTextElements = [];
 			if (enteringSection.querySelector(".hero-main-title"))
 				enteringTextElements.push(
@@ -68,17 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
 					);
 			});
 
-			// Animasi Navigasi Checkpoint
 			const originTooltip = document
 				.querySelector(`#fp-nav ul li a[href="#${origin.anchor}"]`)
-				.closest("li")
-				.querySelector(".fp-tooltip");
+				?.closest("li")
+				?.querySelector(".fp-tooltip");
 			const destinationDot = document.querySelector(
 				`#fp-nav ul li a[href="#${destination.anchor}"] span`
 			);
 
 			if (originTooltip) {
-				// Sembunyikan tooltip yang ditinggalkan
 				gsap.to(originTooltip, {
 					opacity: 0,
 					x: 15,
@@ -87,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
 					ease: "power1.in",
 				});
 			}
-			// Dot tujuan menjadi jelas sesaat
 			if (destinationDot) {
 				gsap.to(destinationDot, {
 					filter: "blur(0px)",
@@ -100,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 		},
 		afterLoad: function (origin, destination, direction) {
-			// Memastikan elemen di section yang baru dimuat terlihat jelas
 			const currentSection = destination.item;
 			let currentTextElements = [];
 			if (currentSection.querySelector(".hero-main-title"))
@@ -121,10 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
 				);
 
 			currentTextElements.forEach((el) => {
-				if (el) gsap.to(el, { opacity: 1, y: 0, duration: 0 }); // Reset instan
+				if (el) gsap.to(el, { opacity: 1, y: 0, duration: 0 });
 			});
 
-			// Final state untuk navigasi setelah scroll selesai
 			const navItems = document.querySelectorAll("#fp-nav ul li");
 			navItems.forEach((item) => {
 				const tooltip = item.querySelector(".fp-tooltip");
@@ -140,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
 							ease: "power2.out",
 						});
 					if (dot)
-						gsap.to(dot, { opacity: 0, visibility: "hidden", duration: 0.2 }); // Sembunyikan dot aktif
+						gsap.to(dot, { opacity: 0, visibility: "hidden", duration: 0.2 });
 				} else {
 					if (tooltip)
 						gsap.to(tooltip, {
@@ -156,14 +150,15 @@ document.addEventListener("DOMContentLoaded", function () {
 							opacity: 0.6,
 							scale: 1,
 							duration: 0.3,
-						}); // Kembalikan dot pasif ke blur
+						});
 				}
 			});
 		},
 	});
 
 	// --- Gemini API Integration ---
-	const apiKey = ""; // API Key dikosongkan, akan di-handle oleh Canvas environment
+	// ... (Kode Gemini API tetap sama) ...
+	const apiKey = "";
 
 	async function callGeminiAPI(prompt, outputElement, loadingSpinner) {
 		if (!prompt.trim()) {
@@ -173,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 
 		loadingSpinner.style.display = "inline-block";
-		outputElement.style.display = "none"; // Sembunyikan output lama
+		outputElement.style.display = "none";
 
 		const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
 		const payload = { contents: chatHistory };
@@ -223,15 +218,13 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	}
 
-	// Fitur Deskripsi Puitis
 	const poeticDescBtn = document.getElementById("generate-poetic-desc-btn");
 	const poeticDescOutput = document.getElementById("poetic-description-output");
 	const poeticDescSpinner = poeticDescBtn
 		? poeticDescBtn.querySelector(".loading-spinner")
-		: null; // Tambah pengecekan
+		: null;
 
 	if (poeticDescBtn && poeticDescSpinner) {
-		// Pastikan spinner juga ada
 		poeticDescBtn.addEventListener("click", function () {
 			const originalDescContainer = document.getElementById(
 				"original-description-container"
@@ -245,7 +238,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			if (!originalText.trim()) {
 				if (poeticDescOutput) {
-					// Pastikan output elemen ada
 					poeticDescOutput.textContent =
 						"Deskripsi produk asli tidak ditemukan.";
 					poeticDescOutput.style.display = "block";
@@ -259,7 +251,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 
-	// Fitur Bantuan Tulis Pesan
 	const assistMessageBtn = document.getElementById("assist-message-btn");
 	const contactMessageTextarea = document.getElementById("contact-message");
 	const contactNameInput = document.getElementById("contact-name");
@@ -268,10 +259,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	);
 	const assistMessageSpinner = assistMessageBtn
 		? assistMessageBtn.querySelector(".loading-spinner")
-		: null; // Tambah pengecekan
+		: null;
 
 	if (assistMessageBtn && contactMessageTextarea && assistMessageSpinner) {
-		// Pastikan semua elemen ada
 		assistMessageBtn.addEventListener("click", function () {
 			const userName = contactNameInput ? contactNameInput.value.trim() : "";
 			const userKeywords = contactMessageTextarea.value.trim();
