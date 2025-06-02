@@ -96,7 +96,8 @@ html {
 
 .hero-asset {
 	max-width: 70%;
-	max-height: 35vh;
+	max-height: auto;
+	width: 1500px;
 	margin-top: 1rem;
 	margin-bottom: 1.5rem;
 	object-fit: contain;
