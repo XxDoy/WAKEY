@@ -3,18 +3,18 @@ body,
 html {
 	margin: 0;
 	padding: 0;
-	overflow: hidden; /* Dikelola oleh fullPage.js */
+	overflow: hidden !important; /* Penting untuk fullPage.js */
 	font-family: "Inter", sans-serif;
 }
 
 /* Styling dasar untuk setiap section fullPage.js */
 .section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	position: relative;
+	display: flex !important; /* Paksa display flex */
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-align: center !important;
+	position: relative !important;
 	/* height: 100vh; /* Dikelola oleh fullPage.js */
 	/* overflow: hidden; /* Dikelola oleh fullPage.js */
 }
@@ -22,25 +22,20 @@ html {
 /* Kontainer konten utama di dalam setiap section */
 .hero-content,
 .section-content-wrapper {
-	/* Kelas baru untuk konsistensi */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	max-width: 1000px; /* Batas lebar umum, bisa disesuaikan per section jika perlu */
+	max-width: 1000px;
 	height: auto;
-	padding: 2rem; /* Padding dasar, sesuaikan dengan Tailwind jika perlu (misal p-6 md:p-10 lg:p-12) */
 	position: relative;
 	z-index: 3;
+	/* Padding akan ditambahkan oleh kelas .main-content-padding atau spesifik */
 }
-
-.hero-content {
-	color: white;
-}
-.section-content-wrapper {
-	/* Wrapper untuk section Produk, Lokasi, Kontak */
-	/* max-width bisa lebih spesifik di sini atau diatur oleh anak-anaknya */
+.main-content-padding {
+	/* Kelas baru untuk padding konsisten */
+	padding: 2rem;
 }
 
 /* Styling spesifik untuk hero-section */
@@ -80,6 +75,10 @@ html {
 	pointer-events: none;
 }
 
+.hero-content {
+	color: white;
+}
+
 .logo-container {
 	position: absolute;
 	top: 2rem;
@@ -115,13 +114,11 @@ html {
 
 @media (min-width: 768px) {
 	.section-content-wrapper {
-		/* Berlaku untuk .product-detail-content, .content-wrapper di Lokasi & Kontak */
 		flex-direction: row;
 		gap: 2.5rem;
 		align-items: flex-start;
 	}
-	.hero-content,
-	.section-content-wrapper {
+	.main-content-padding {
 		padding: 2.5rem; /* Padding lebih besar untuk desktop */
 	}
 	.logo {
@@ -136,7 +133,7 @@ html {
 	max-width: 400px;
 	width: 100%;
 	align-self: center;
-	padding: 0.5rem; /* Sedikit padding internal jika perlu */
+	padding: 0.5rem;
 }
 .product-detail-image {
 	max-width: 100%;
@@ -154,7 +151,7 @@ html {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 0.5rem; /* Sedikit padding internal jika perlu */
+	padding: 0.5rem;
 }
 @media (min-width: 768px) {
 	.location-section .section-text-content,
@@ -169,15 +166,10 @@ html {
 
 .main-title,
 .section-main-title {
-	/* Kelas umum untuk judul utama section */
 	font-size: 2rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
 	color: #f39c12;
-}
-.main-subtitle {
-	/* Kelas umum untuk subjudul */
-	/* Styling spesifik jika perlu */
 }
 
 .product-description p,
@@ -218,56 +210,74 @@ html {
 /* Navigasi Checkpoint fullPage.js */
 #fp-nav {
 	z-index: 1000 !important;
+	/* Pastikan fullPage.js menambahkan ini, jika tidak tambahkan manual saat inisialisasi */
 }
 #fp-nav ul li {
-	margin: 18px 7px;
-} /* Jarak antar item */
+	margin: 20px 10px !important; /* Jarak antar item lebih besar */
+	display: flex; /* Untuk alignment tooltip */
+	align-items: center; /* Untuk alignment tooltip */
+}
 
 #fp-nav ul li a span {
 	/* Bulatan pasif */
-	background: rgba(255, 255, 255, 0.3) !important;
-	width: 10px !important;
-	height: 10px !important;
-	margin: -5px 0 0 -5px !important;
-	filter: blur(1px);
-	opacity: 0.6;
-	transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+	background: rgba(255, 255, 255, 0.4) !important;
+	width: 12px !important;
+	height: 12px !important;
+	margin: -6px 0 0 -6px !important;
+	filter: blur(1.5px);
+	opacity: 0.7;
+	transition: all 0.3s ease-out;
+	display: block !important; /* Pastikan dot selalu block */
+	visibility: visible !important; /* Pastikan dot pasif terlihat */
 }
 #fp-nav ul li a:hover span {
 	/* Hover pada bulatan pasif */
-	background: rgba(255, 255, 255, 0.8) !important;
+	background: rgba(255, 255, 255, 0.9) !important;
 	filter: blur(0px);
 	opacity: 1;
-	transform: scale(1.4);
+	transform: scale(1.3);
 }
-/* Bulatan aktif akan disembunyikan oleh JS dengan mengatur opacity & visibility */
-/* Jadi tidak perlu styling khusus #fp-nav ul li a.active span untuk menyembunyikan */
+
+/* Sembunyikan dot ketika item navigasi aktif (tooltip akan muncul) */
+#fp-nav ul li.active a span {
+	opacity: 0 !important;
+	visibility: hidden !important;
+	transform: scale(0.5) !important; /* Mengecil saat menghilang */
+	transition: opacity 0.2s ease-in, visibility 0s linear 0.2s,
+		transform 0.2s ease-in;
+}
 
 #fp-nav ul li .fp-tooltip {
 	/* Teks nama halaman (tooltip) */
 	color: #ffffff !important;
-	background: rgba(30, 30, 30, 0.85) !important; /* Background lebih solid */
-	backdrop-filter: blur(4px);
-	padding: 8px 16px !important; /* Padding lebih besar */
+	background: rgba(
+		20,
+		20,
+		22,
+		0.9
+	) !important; /* Background lebih gelap dan solid */
+	backdrop-filter: blur(5px);
+	padding: 8px 18px !important;
 	border-radius: 6px !important;
-	font-size: 14px !important; /* Font lebih besar */
+	font-size: 14px !important;
 	font-weight: 600;
 	top: 50% !important;
-	white-space: nowrap;
-	opacity: 0; /* Awalnya disembunyikan */
+	transform: translateY(-50%); /* Posisi vertikal tengah */
+	right: 35px !important; /* Jarak dari tepi kanan, sesuaikan dengan posisi #fp-nav */
+	opacity: 0;
 	visibility: hidden;
-	transform: translateY(-50%) translateX(20px); /* Mulai dari lebih kanan */
 	transition: opacity 0.3s ease-out, visibility 0s linear 0.3s,
 		transform 0.3s ease-out;
-	pointer-events: none; /* Agar tidak mengganggu klik pada dot jika tumpang tindih */
+	pointer-events: none;
+	white-space: nowrap;
+	/* Hapus transform translateX yang mungkin menyebabkan pergeseran awal */
 }
 
-/* Styling untuk tooltip yang aktif (ketika li.active) */
 #fp-nav ul li.active .fp-tooltip.fp-right {
 	opacity: 1 !important;
 	visibility: visible !important;
-	transform: translateY(-50%) translateX(0px) !important; /* Muncul ke posisi normal */
-	transition-delay: 0.05s; /* Delay singkat saat muncul */
+	transform: translateY(-50%) translateX(0) !important; /* Pastikan tidak ada pergeseran horizontal */
+	transition-delay: 0.1s; /* Sedikit delay saat muncul */
 	z-index: 1001;
 }
 

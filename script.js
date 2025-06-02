@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		navigation: true,
 		navigationPosition: "right",
 		navigationTooltips: ["Beranda", "Produk", "Lokasi", "Kontak"],
-		showActiveTooltip: true, // Biarkan fullPage.js yang mengelola ini untuk teks statis
+		showActiveTooltip: true, // PENTING: Biarkan fullPage.js yang mengelola tampilan tooltip dasar
 		anchors: ["beranda", "produk", "lokasi", "kontak"],
 		licenseKey: "OPEN-SOURCE-GPLV3-LICENSE",
 		verticalCentered: false, // PENTING: Biarkan CSS Flexbox yang menangani centering
@@ -60,26 +60,28 @@ document.addEventListener("DOMContentLoaded", function () {
 			// Animasi untuk Navigasi Checkpoint (Dot menjadi jelas saat transisi)
 			const allDots = document.querySelectorAll("#fp-nav ul li a span");
 			allDots.forEach((dot) => {
+				// Reset semua dot ke tampilan pasif (blur)
 				gsap.to(dot, {
-					filter: "blur(1px)",
-					opacity: 0.6,
+					filter: "blur(1.5px)",
+					opacity: 0.7,
 					scale: 1,
 					duration: 0.3,
-				}); // Reset semua dot ke blur
+					ease: "power1.out",
+				});
 			});
 
 			const destinationDot = document.querySelector(
 				`#fp-nav ul li a[href="#${destination.anchor}"] span`
 			);
 			if (destinationDot) {
-				// Buat dot tujuan menjadi jelas
+				// Buat dot tujuan menjadi jelas sementara
 				gsap.to(destinationDot, {
 					filter: "blur(0px)",
 					opacity: 1,
 					scale: 1.2,
 					duration: 0.2,
 					ease: "power1.out",
-					delay: 0.1,
+					delay: 0.05,
 				});
 			}
 		},
@@ -102,14 +104,15 @@ document.addEventListener("DOMContentLoaded", function () {
 				if (el) gsap.to(el, { opacity: 1, y: 0, duration: 0 });
 			});
 
-			// Mengatur tampilan dot dan tooltip setelah section dimuat
+			// Mengatur tampilan akhir dot dan tooltip setelah section dimuat
 			const navItems = document.querySelectorAll("#fp-nav ul li");
 			navItems.forEach((item) => {
 				const tooltip = item.querySelector(".fp-tooltip");
 				const dot = item.querySelector("a span");
+
 				if (item.classList.contains("active")) {
+					// Item aktif: tampilkan tooltip (nama page), sembunyikan dot
 					if (tooltip) {
-						// Tampilkan tooltip (nama page)
 						gsap.to(tooltip, {
 							opacity: 1,
 							x: 0,
@@ -120,28 +123,33 @@ document.addEventListener("DOMContentLoaded", function () {
 						});
 					}
 					if (dot) {
-						// Sembunyikan dot
-						gsap.to(dot, { opacity: 0, visibility: "hidden", duration: 0.15 });
+						gsap.to(dot, {
+							opacity: 0,
+							visibility: "hidden",
+							scale: 0.5,
+							duration: 0.2,
+							ease: "power1.in",
+						});
 					}
 				} else {
+					// Item tidak aktif: sembunyikan tooltip, tampilkan dot (dengan blur)
 					if (tooltip) {
-						// Sembunyikan tooltip
 						gsap.to(tooltip, {
 							opacity: 0,
-							x: 15,
+							x: 20,
 							visibility: "hidden",
 							duration: 0.3,
 							ease: "power1.in",
 						});
 					}
 					if (dot) {
-						// Tampilkan dot (dengan blur)
 						gsap.to(dot, {
-							filter: "blur(1px)",
-							opacity: 0.6,
+							filter: "blur(1.5px)",
+							opacity: 0.7,
 							scale: 1,
 							visibility: "visible",
 							duration: 0.3,
+							ease: "power1.out",
 						});
 					}
 				}
@@ -156,12 +164,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		if (!prompt.trim()) {
 			outputElement.textContent = "Harap masukkan prompt atau teks yang valid.";
 			outputElement.style.display = "block";
-			loadingSpinner.style.display = "none";
+			if (loadingSpinner) loadingSpinner.style.display = "none";
 			return;
 		}
 
-		loadingSpinner.style.display = "inline-block";
-		outputElement.style.display = "none";
+		if (loadingSpinner) loadingSpinner.style.display = "inline-block";
+		if (outputElement) outputElement.style.display = "none";
 
 		const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
 		const payload = { contents: chatHistory };
@@ -194,20 +202,26 @@ document.addEventListener("DOMContentLoaded", function () {
 				result.candidates[0].content.parts.length > 0
 			) {
 				const text = result.candidates[0].content.parts[0].text;
-				outputElement.textContent = text;
-				outputElement.style.display = "block";
+				if (outputElement) {
+					outputElement.textContent = text;
+					outputElement.style.display = "block";
+				}
 			} else {
 				console.error("Unexpected API response structure:", result);
-				outputElement.textContent =
-					"Gagal mendapatkan respons dari AI. Struktur respons tidak sesuai.";
-				outputElement.style.display = "block";
+				if (outputElement) {
+					outputElement.textContent =
+						"Gagal mendapatkan respons dari AI. Struktur respons tidak sesuai.";
+					outputElement.style.display = "block";
+				}
 			}
 		} catch (error) {
 			console.error("Error calling Gemini API:", error);
-			outputElement.textContent = `Terjadi kesalahan: ${error.message}. Coba lagi nanti.`;
-			outputElement.style.display = "block";
+			if (outputElement) {
+				outputElement.textContent = `Terjadi kesalahan: ${error.message}. Coba lagi nanti.`;
+				outputElement.style.display = "block";
+			}
 		} finally {
-			loadingSpinner.style.display = "none";
+			if (loadingSpinner) loadingSpinner.style.display = "none";
 		}
 	}
 
