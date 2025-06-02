@@ -12,6 +12,28 @@
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
+		<nav
+			id="custom-nav"
+			class="fixed top-1/2 -translate-y-1/2 right-4 md:right-6 flex flex-col gap-3 z-50"
+		>
+			<a href="#beranda" class="nav-dot" data-menuanchor="beranda">
+				<span class="dot-label">Beranda</span>
+				<span class="dot-circle"></span>
+			</a>
+			<a href="#produk" class="nav-dot" data-menuanchor="produk">
+				<span class="dot-label">Produk</span>
+				<span class="dot-circle"></span>
+			</a>
+			<a href="#lokasi" class="nav-dot" data-menuanchor="lokasi">
+				<span class="dot-label">Lokasi</span>
+				<span class="dot-circle"></span>
+			</a>
+			<a href="#kontak" class="nav-dot" data-menuanchor="kontak">
+				<span class="dot-label">Kontak</span>
+				<span class="dot-circle"></span>
+			</a>
+		</nav>
+
 		<div id="fullpage">
 			<div class="section hero-section" data-anchor="beranda">
 				<div class="hero-content main-content-padding">
@@ -49,7 +71,7 @@
 							src="images/Coffee-Layered _Wakey!_ Snack Bar_edited_edited.jpg"
 							alt="Snack Bar"
 							class="product-detail-image"
-							onerror="this.onerror=null; this.src='https://placehold.co/400x450/1f1f23/FFFFFF?text=Lapisan+Wakey!';"
+							onerror="this.onerror=null; this.src='https://placehold.co/450x500/1f1f23/FFFFFF?text=Lapisan+Wakey!';"
 						/>
 					</div>
 					<div class="product-text-wrapper">
@@ -107,23 +129,11 @@
 						</div>
 						<div class="flex flex-col sm:flex-row gap-4 mt-8">
 							<button
-								id="generate-poetic-desc-btn"
-								class="gemini-button w-full sm:w-auto justify-center"
-							>
-								✨ Bayangkan Deskripsi Puitisnya
-								<span class="loading-spinner" style="display: none"></span>
-							</button>
-							<button
 								class="bg-yellow-500 text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg w-full sm:w-auto"
 							>
 								INFO PELUNCURAN
 							</button>
 						</div>
-						<div
-							id="poetic-description-output"
-							class="gemini-output"
-							style="display: none"
-						></div>
 					</div>
 				</div>
 			</div>
@@ -157,7 +167,7 @@
 							BERI TAHU SAYA!
 						</button>
 					</div>
-					<div class="mt-8 md:mt-0 flex-shrink-0">
+					<div class="mt-8 md:mt-0 flex-shrink-0 image-container-sejajar">
 						<img
 							src="https://placehold.co/450x350/2a2a2e/FFFFFF?text=Wakey!+Coming+Soon"
 							alt="Wakey! Segera Hadir"
@@ -208,7 +218,7 @@
 								></textarea>
 							</div>
 							<div
-								class="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4"
+								class="flex flex-col sm:flex-row items-center justify-center gap-4"
 							>
 								<button
 									type="submit"
@@ -216,20 +226,7 @@
 								>
 									KIRIM PESAN
 								</button>
-								<button
-									type="button"
-									id="assist-message-btn"
-									class="w-full sm:w-auto gemini-button justify-center"
-								>
-									✨ Bantu Tulis
-									<span class="loading-spinner" style="display: none"></span>
-								</button>
 							</div>
-							<div
-								id="assisted-message-output"
-								class="gemini-output mt-6"
-								style="display: none"
-							></div>
 						</form>
 					</div>
 				</div>

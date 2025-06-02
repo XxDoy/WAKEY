@@ -13,7 +13,6 @@ html {
 	flex-direction: column !important;
 	align-items: center !important;
 	justify-content: center !important;
-	/* text-align: center !important; Dihapus agar tidak override anak */
 	position: relative !important;
 	box-sizing: border-box;
 }
@@ -22,7 +21,6 @@ html {
 .hero-content,
 .section-content-wrapper,
 .product-content-container {
-	/* Menambahkan kontainer produk baru */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -38,9 +36,8 @@ html {
 	padding: 2rem;
 }
 .product-content-container {
-	/* Kontainer khusus untuk produk dari HTML Anda */
 	padding: 2rem;
-	gap: 2rem; /* Gap dasar untuk mobile */
+	gap: 1.5rem;
 }
 
 /* Styling spesifik untuk hero-section */
@@ -82,18 +79,17 @@ html {
 
 .hero-content {
 	color: white;
-	text-align: center; /* Pastikan konten hero tetap center */
+	text-align: center;
 }
 
 .hero-main-logo {
-	/* Styling untuk logo pengganti H1 */
-	max-height: 70px; /* Sesuaikan dengan ukuran H1 sebelumnya */
+	max-height: 70px;
 	width: auto;
-	margin-bottom: 0.75rem; /* Mirip margin H1 */
+	margin-bottom: 0.75rem;
 }
 @media (min-width: 768px) {
 	.hero-main-logo {
-		max-height: 90px; /* Lebih besar di desktop */
+		max-height: 90px;
 	}
 }
 
@@ -120,71 +116,80 @@ html {
 }
 
 @media (min-width: 768px) {
-	.section-content-wrapper,
-	.product-content-container {
+	.section-content-wrapper {
 		flex-direction: row;
 		gap: 3rem;
 		align-items: flex-start;
 	}
-	.main-content-padding,
-	.product-content-container {
+	.main-content-padding {
 		padding: 3rem 2.5rem;
 	}
-	.logo {
-		max-height: 60px;
-	} /* Logo di navigasi atas jika ada */
+	.product-content-container {
+		padding: 3.5rem 4rem; /* Padding lebih besar untuk produk */
+		gap: 3.5rem; /* Gap lebih besar untuk produk */
+		flex-direction: row; /* Pastikan row di desktop */
+		align-items: center; /* Pusatkan item secara vertikal */
+	}
 }
 @media (min-width: 1024px) {
-	.main-content-padding,
-	.product-content-container {
-		padding: 3.5rem 4rem;
+	.main-content-padding {
+		padding: 3.5rem 3rem;
 	}
-	.section-content-wrapper,
 	.product-content-container {
+		padding: 4rem 5rem;
 		gap: 4rem;
 	}
 }
 
 /* Penyesuaian untuk layout produk dari HTML Anda */
 .product-image-wrapper {
-	/* Menggantikan .product-image-container */
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%; /* Ambil lebar penuh di mobile */
-	max-width: 320px;
+	width: 100%;
+	max-width: 320px; /* Max-width gambar di mobile */
+	margin-bottom: 1.5rem;
 }
 .product-text-wrapper {
-	/* Menggantikan .product-description */
 	width: 100%;
-	text-align: left; /* Teks di dalam wrapper ini rata kiri */
+	text-align: left;
 }
 
 @media (min-width: 768px) {
 	.product-image-wrapper {
-		width: 40%;
-		max-width: 420px;
+		width: 45%; /* Persentase lebar untuk gambar */
+		max-width: 450px; /* Max-width gambar lebih besar */
 		flex-shrink: 0;
+		margin-bottom: 0;
+		margin-right: 2rem;
 	}
 	.product-text-wrapper {
-		width: 60%;
+		width: 55%; /* Sisa lebar untuk teks */
+		display: flex;
+		flex-direction: column;
+		justify-content: center; /* Memusatkan teks secara vertikal */
 	}
 	.location-section .section-text-content,
 	.location-section .flex-shrink-0 {
 		flex: 1;
+		align-self: center; /* Agar sejajar dengan teks jika tingginya beda */
+	}
+	.location-section .image-container-sejajar img {
+		/* Pastikan gambar di lokasi juga responsif */
+		max-width: 100%;
+		height: auto;
 	}
 }
 
 .product-detail-image {
 	max-width: 100%;
-	max-height: 60vh;
+	max-height: 70vh; /* Memungkinkan gambar lebih tinggi */
 	border-radius: 12px;
 	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 	object-fit: contain;
 }
 
 .section-text-content {
-	/* Untuk section Lokasi dan Kontak */
 	text-align: left;
 	max-width: 580px;
 	width: 100%;
@@ -194,9 +199,8 @@ html {
 	padding: 0.5rem;
 }
 .contact-section .section-text-content {
-	/* Memastikan text-align center untuk kontak */
 	text-align: center;
-	align-items: center; /* Pusatkan form juga */
+	align-items: center;
 }
 
 .main-title,
@@ -225,11 +229,10 @@ html {
 	list-style: disc;
 	padding-left: 1.5rem;
 	margin-bottom: 1.25rem;
-} /* Menggunakan list-disc default */
+}
 .product-text-wrapper li {
 	font-size: 0.95rem;
 	margin-bottom: 0.75rem;
-	/* padding-left tidak perlu jika sudah list-disc */
 }
 
 .hero-main-title,
@@ -241,86 +244,86 @@ html {
 	opacity: 1;
 }
 
-/* Navigasi Checkpoint fullPage.js */
-#fp-nav {
-	z-index: 1000 !important;
-	right: 20px !important;
+/* Navigasi Kustom (Pengganti #fp-nav) */
+#custom-nav {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 1rem; /* 16px */
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
-#fp-nav ul li {
-	margin: 22px 0px !important;
-	display: flex !important;
-	align-items: center !important;
+
+.nav-dot {
+	display: flex;
+	align-items: center;
 	justify-content: flex-end;
+	text-decoration: none;
 	position: relative;
-	height: 20px;
+	height: 24px;
+	cursor: pointer;
+	width: auto;
+	min-width: 24px;
 }
 
-#fp-nav ul li a span {
-	/* Bulatan pasif */
-	background: rgba(255, 255, 255, 0.35) !important;
-	width: 12px !important;
-	height: 12px !important;
-	margin: 0 !important;
+.nav-dot .dot-circle {
+	width: 10px;
+	height: 10px;
+	background-color: rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
 	filter: blur(1px);
-	opacity: 0.65;
-	transition: all 0.3s ease-out;
-	display: block !important;
-	visibility: visible !important;
+	opacity: 0.7;
+	transition: all 0.2s ease-out; /* Transisi lebih cepat */
+	order: 2;
 	position: absolute;
-	right: 0;
+	right: 6px;
 	top: 50%;
 	transform: translateY(-50%);
 }
-#fp-nav ul li a:hover span {
-	/* Hover pada bulatan pasif */
-	background: rgba(255, 255, 255, 0.9) !important;
-	filter: blur(0px);
-	opacity: 1;
-	transform: translateY(-50%) scale(1.35);
-}
 
-#fp-nav ul li.active a span {
-	/* Bulatan aktif (akan disembunyikan oleh JS) */
-	opacity: 0 !important;
-	visibility: hidden !important;
-	transform: translateY(-50%) scale(0.5) !important;
-	transition: opacity 0.2s ease-in, visibility 0s linear 0.2s,
-		transform 0.2s ease-in;
-}
-
-#fp-nav ul li .fp-tooltip {
-	/* Teks nama halaman (tooltip) */
-	color: #ffffff !important;
-	background: rgba(25, 25, 28, 0.9) !important;
-	backdrop-filter: blur(5px);
-	padding: 8px 18px !important;
-	border-radius: 6px !important;
-	font-size: 13px !important;
-	font-weight: 600;
-	position: absolute;
-	top: 50%;
-	right: 25px;
-	transform: translateY(-50%);
+.nav-dot .dot-label {
+	color: #ffffff;
+	background: rgba(25, 25, 28, 0.9);
+	backdrop-filter: blur(4px);
+	padding: 7px 16px;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: 500;
+	white-space: nowrap;
+	margin-right: 24px; /* Jarak label dari tepi kanan (memberi ruang untuk dot) */
 	opacity: 0;
 	visibility: hidden;
-	transition: opacity 0.3s ease-out, visibility 0s linear 0.3s,
-		transform 0.3s ease-out;
-	pointer-events: none;
-	white-space: nowrap;
-	z-index: 1;
+	transform: translateX(8px);
+	transition: opacity 0.2s ease-out, visibility 0s linear 0.2s,
+		transform 0.2s ease-out; /* Transisi lebih cepat */
+	order: 1;
 }
 
-#fp-nav ul li.active .fp-tooltip {
-	/* Tooltip untuk item aktif */
-	opacity: 1 !important;
-	visibility: visible !important;
-	transition-delay: 0.1s;
-	z-index: 1001;
+.nav-dot:hover .dot-circle {
+	background-color: rgba(255, 255, 255, 0.9);
+	filter: blur(0px);
+	opacity: 1;
+	transform: translateY(-50%) scale(1.3);
 }
 
-/* Gemini API Feature Styling */
-.gemini-button {
-	background-color: #8a2be2;
+.nav-dot.active .dot-circle {
+	opacity: 0 !important; /* Paksa sembunyi */
+	visibility: hidden !important; /* Paksa sembunyi */
+	transform: translateY(-50%) scale(0.5) !important;
+}
+
+.nav-dot.active .dot-label {
+	opacity: 1 !important; /* Paksa tampil */
+	visibility: visible !important; /* Paksa tampil */
+	transform: translateX(0) !important;
+	transition-delay: 0.05s !important;
+}
+
+/* Tombol Placeholder (Pengganti Gemini) */
+.gemini-button-placeholder {
+	background-color: #6c757d;
 	color: white;
 	padding: 0.6rem 1.2rem;
 	border-radius: 0.5rem;
@@ -331,33 +334,6 @@ html {
 	border: none;
 	font-size: 0.9rem;
 }
-.gemini-button:hover {
-	background-color: #7b1fa2;
-}
-.gemini-output {
-	margin-top: 1.25rem;
-	padding: 1rem;
-	background-color: rgba(255, 255, 255, 0.05);
-	border-radius: 0.5rem;
-	text-align: left;
-	font-size: 0.9rem;
-	line-height: 1.6;
-	max-height: 200px;
-	overflow-y: auto;
-	white-space: pre-wrap;
-}
-.loading-spinner {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	border: 3px solid rgba(255, 255, 255, 0.3);
-	border-radius: 50%;
-	border-top-color: #fff;
-	animation: spin 1s ease-in-out infinite;
-	margin-left: 8px;
-}
-@keyframes spin {
-	to {
-		transform: rotate(360deg);
-	}
+.gemini-button-placeholder:hover {
+	background-color: #5a6268;
 }
