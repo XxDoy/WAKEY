@@ -1,169 +1,198 @@
 document.addEventListener("DOMContentLoaded", function () {
-	// Inisialisasi fullPage.js
-	new fullpage("#fullpage", {
-		scrollingSpeed: 1000,
-		autoScrolling: true,
-		fitToSection: true,
-		fitToSectionDelay: 1000,
-		navigation: true,
-		navigationPosition: "right",
-		navigationTooltips: ["Beranda", "Produk", "Lokasi", "Kontak"],
-		showActiveTooltip: true, // PENTING: Biarkan fullPage.js yang mengelola tampilan tooltip dasar
-		anchors: ["beranda", "produk", "lokasi", "kontak"],
-		licenseKey: "OPEN-SOURCE-GPLV3-LICENSE",
-		verticalCentered: false, // PENTING: Biarkan CSS Flexbox yang menangani centering
+	if (document.getElementById("fullpage")) {
+		new fullpage("#fullpage", {
+			scrollingSpeed: 1000,
+			autoScrolling: true,
+			fitToSection: true,
+			fitToSectionDelay: 1000,
+			navigation: true,
+			navigationPosition: "right",
+			navigationTooltips: ["Beranda", "Produk", "Lokasi", "Kontak"],
+			showActiveTooltip: true, // Penting agar fullPage.js membuat elemen tooltip
+			anchors: ["beranda", "produk", "lokasi", "kontak"],
+			licenseKey: "OPEN-SOURCE-GPLV3-LICENSE",
+			verticalCentered: false, // CSS Flexbox kita yang menangani centering
 
-		onLeave: function (origin, destination, direction) {
-			const leavingSection = origin.item;
-			const enteringSection = destination.item;
+			onLeave: function (origin, destination, direction) {
+				const leavingSection = origin.item;
+				const enteringSection = destination.item;
 
-			// Animasi untuk elemen teks utama yang keluar
-			let leavingTextElements = [];
-			if (leavingSection.querySelector(".main-title"))
-				leavingTextElements.push(leavingSection.querySelector(".main-title"));
-			if (leavingSection.querySelector(".main-subtitle"))
-				leavingTextElements.push(
-					leavingSection.querySelector(".main-subtitle")
-				);
-			if (leavingSection.querySelector(".section-main-title"))
-				leavingTextElements.push(
-					leavingSection.querySelector(".section-main-title")
-				);
-
-			leavingTextElements.forEach((el) => {
-				if (el)
-					gsap.to(el, { opacity: 0, y: -60, duration: 0.6, ease: "power2.in" });
-			});
-
-			// Animasi untuk elemen teks utama yang masuk
-			let enteringTextElements = [];
-			if (enteringSection.querySelector(".main-title"))
-				enteringTextElements.push(enteringSection.querySelector(".main-title"));
-			if (enteringSection.querySelector(".main-subtitle"))
-				enteringTextElements.push(
-					enteringSection.querySelector(".main-subtitle")
-				);
-			if (enteringSection.querySelector(".section-main-title"))
-				enteringTextElements.push(
-					enteringSection.querySelector(".section-main-title")
-				);
-
-			enteringTextElements.forEach((el) => {
-				if (el)
-					gsap.fromTo(
-						el,
-						{ y: 60, opacity: 0 },
-						{ y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.5 }
+				// Animasi teks konten utama keluar
+				let leavingTextElements = [];
+				if (leavingSection.querySelector(".main-title"))
+					leavingTextElements.push(leavingSection.querySelector(".main-title"));
+				if (leavingSection.querySelector(".main-subtitle"))
+					leavingTextElements.push(
+						leavingSection.querySelector(".main-subtitle")
 					);
-			});
+				if (leavingSection.querySelector(".section-main-title"))
+					leavingTextElements.push(
+						leavingSection.querySelector(".section-main-title")
+					);
 
-			// Animasi untuk Navigasi Checkpoint (Dot menjadi jelas saat transisi)
-			const allDots = document.querySelectorAll("#fp-nav ul li a span");
-			allDots.forEach((dot) => {
-				// Reset semua dot ke tampilan pasif (blur)
-				gsap.to(dot, {
-					filter: "blur(1.5px)",
-					opacity: 0.7,
-					scale: 1,
-					duration: 0.3,
-					ease: "power1.out",
-				});
-			});
-
-			const destinationDot = document.querySelector(
-				`#fp-nav ul li a[href="#${destination.anchor}"] span`
-			);
-			if (destinationDot) {
-				// Buat dot tujuan menjadi jelas sementara
-				gsap.to(destinationDot, {
-					filter: "blur(0px)",
-					opacity: 1,
-					scale: 1.2,
-					duration: 0.2,
-					ease: "power1.out",
-					delay: 0.05,
-				});
-			}
-		},
-		afterLoad: function (origin, destination, direction) {
-			// Memastikan elemen di section yang baru dimuat terlihat jelas
-			const currentSection = destination.item;
-			let currentTextElements = [];
-			if (currentSection.querySelector(".main-title"))
-				currentTextElements.push(currentSection.querySelector(".main-title"));
-			if (currentSection.querySelector(".main-subtitle"))
-				currentTextElements.push(
-					currentSection.querySelector(".main-subtitle")
-				);
-			if (currentSection.querySelector(".section-main-title"))
-				currentTextElements.push(
-					currentSection.querySelector(".section-main-title")
-				);
-
-			currentTextElements.forEach((el) => {
-				if (el) gsap.to(el, { opacity: 1, y: 0, duration: 0 });
-			});
-
-			// Mengatur tampilan akhir dot dan tooltip setelah section dimuat
-			const navItems = document.querySelectorAll("#fp-nav ul li");
-			navItems.forEach((item) => {
-				const tooltip = item.querySelector(".fp-tooltip");
-				const dot = item.querySelector("a span");
-
-				if (item.classList.contains("active")) {
-					// Item aktif: tampilkan tooltip (nama page), sembunyikan dot
-					if (tooltip) {
-						gsap.to(tooltip, {
-							opacity: 1,
-							x: 0,
-							visibility: "visible",
-							duration: 0.3,
-							delay: 0.05,
-							ease: "power2.out",
+				leavingTextElements.forEach((el) => {
+					if (el)
+						gsap.to(el, {
+							opacity: 0,
+							y: -60,
+							duration: 0.6,
+							ease: "power2.in",
 						});
-					}
-					if (dot) {
-						gsap.to(dot, {
+				});
+
+				// Animasi teks konten utama masuk
+				let enteringTextElements = [];
+				if (enteringSection.querySelector(".main-title"))
+					enteringTextElements.push(
+						enteringSection.querySelector(".main-title")
+					);
+				if (enteringSection.querySelector(".main-subtitle"))
+					enteringTextElements.push(
+						enteringSection.querySelector(".main-subtitle")
+					);
+				if (enteringSection.querySelector(".section-main-title"))
+					enteringTextElements.push(
+						enteringSection.querySelector(".section-main-title")
+					);
+
+				enteringTextElements.forEach((el) => {
+					if (el)
+						gsap.fromTo(
+							el,
+							{ y: 60, opacity: 0 },
+							{
+								y: 0,
+								opacity: 1,
+								duration: 0.8,
+								ease: "power2.out",
+								delay: 0.5,
+							}
+						);
+				});
+
+				// Animasi Navigasi Checkpoint
+				const originNavItem = document
+					.querySelector(`#fp-nav ul li a[href="#${origin.anchor}"]`)
+					?.closest("li");
+				if (originNavItem) {
+					const originTooltip = originNavItem.querySelector(".fp-tooltip");
+					const originDot = originNavItem.querySelector("a span");
+
+					if (originTooltip) {
+						// Sembunyikan tooltip lama
+						gsap.to(originTooltip, {
 							opacity: 0,
 							visibility: "hidden",
-							scale: 0.5,
 							duration: 0.2,
 							ease: "power1.in",
 						});
 					}
-				} else {
-					// Item tidak aktif: sembunyikan tooltip, tampilkan dot (dengan blur)
-					if (tooltip) {
-						gsap.to(tooltip, {
-							opacity: 0,
-							x: 20,
-							visibility: "hidden",
-							duration: 0.3,
-							ease: "power1.in",
-						});
-					}
-					if (dot) {
-						gsap.to(dot, {
-							filter: "blur(1.5px)",
-							opacity: 0.7,
-							scale: 1,
+					if (originDot && !originNavItem.classList.contains("active")) {
+						// Munculkan kembali dot lama jika tidak akan aktif
+						gsap.to(originDot, {
+							opacity: 0.65,
 							visibility: "visible",
-							duration: 0.3,
+							scale: 1,
+							filter: "blur(1px)",
+							duration: 0.2,
 							ease: "power1.out",
 						});
 					}
 				}
-			});
-		},
-	});
+
+				// Buat dot tujuan menjadi jelas sementara saat transisi
+				const destinationDot = document.querySelector(
+					`#fp-nav ul li a[href="#${destination.anchor}"] span`
+				);
+				if (destinationDot) {
+					gsap.to(destinationDot, {
+						filter: "blur(0px)",
+						opacity: 1,
+						scale: 1.2,
+						duration: 0.2,
+						ease: "power1.out",
+						delay: 0.1, // Sedikit delay agar terlihat setelah dot lama mulai menghilang
+					});
+				}
+			},
+			afterLoad: function (origin, destination, direction) {
+				const currentSection = destination.item;
+				let currentTextElements = [];
+				if (currentSection.querySelector(".main-title"))
+					currentTextElements.push(currentSection.querySelector(".main-title"));
+				if (currentSection.querySelector(".main-subtitle"))
+					currentTextElements.push(
+						currentSection.querySelector(".main-subtitle")
+					);
+				if (currentSection.querySelector(".section-main-title"))
+					currentTextElements.push(
+						currentSection.querySelector(".section-main-title")
+					);
+
+				currentTextElements.forEach((el) => {
+					if (el) gsap.to(el, { opacity: 1, y: 0, duration: 0 });
+				});
+
+				// Mengatur tampilan akhir dot dan tooltip setelah section dimuat
+				const navItems = document.querySelectorAll("#fp-nav ul li");
+				navItems.forEach((item) => {
+					const tooltip = item.querySelector(".fp-tooltip");
+					const dot = item.querySelector("a span");
+
+					if (tooltip && dot) {
+						if (item.classList.contains("active")) {
+							// Item aktif: tampilkan tooltip (nama page), sembunyikan dot
+							gsap.to(tooltip, {
+								opacity: 1,
+								visibility: "visible",
+								duration: 0.3,
+								delay: 0.1, // Delay agar muncul setelah dot tujuan selesai animasi onLeave
+								ease: "power2.out",
+							});
+							gsap.to(dot, {
+								opacity: 0,
+								visibility: "hidden",
+								scale: 0.5,
+								duration: 0.2,
+								ease: "power1.in",
+							});
+						} else {
+							// Item tidak aktif: sembunyikan tooltip, tampilkan dot (dengan blur)
+							gsap.to(tooltip, {
+								opacity: 0,
+								visibility: "hidden",
+								duration: 0.3,
+								ease: "power1.in",
+							});
+							gsap.to(dot, {
+								filter: "blur(1px)",
+								opacity: 0.65,
+								scale: 1,
+								visibility: "visible",
+								duration: 0.3,
+								ease: "power1.out",
+							});
+						}
+					}
+				});
+			},
+		});
+	} else {
+		console.warn(
+			"Elemen #fullpage tidak ditemukan. fullPage.js tidak diinisialisasi."
+		);
+	}
 
 	// --- Gemini API Integration ---
 	const apiKey = "";
 
 	async function callGeminiAPI(prompt, outputElement, loadingSpinner) {
-		if (!prompt.trim()) {
-			outputElement.textContent = "Harap masukkan prompt atau teks yang valid.";
-			outputElement.style.display = "block";
+		if (!prompt || !prompt.trim()) {
+			if (outputElement) {
+				outputElement.textContent =
+					"Harap masukkan prompt atau teks yang valid.";
+				outputElement.style.display = "block";
+			}
 			if (loadingSpinner) loadingSpinner.style.display = "none";
 			return;
 		}

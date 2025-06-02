@@ -3,39 +3,44 @@ body,
 html {
 	margin: 0;
 	padding: 0;
-	overflow: hidden !important; /* Penting untuk fullPage.js */
+	overflow: hidden !important;
 	font-family: "Inter", sans-serif;
 }
 
 /* Styling dasar untuk setiap section fullPage.js */
 .section {
-	display: flex !important; /* Paksa display flex */
+	display: flex !important;
 	flex-direction: column !important;
 	align-items: center !important;
 	justify-content: center !important;
-	text-align: center !important;
+	/* text-align: center !important; Dihapus agar tidak override anak */
 	position: relative !important;
-	/* height: 100vh; /* Dikelola oleh fullPage.js */
-	/* overflow: hidden; /* Dikelola oleh fullPage.js */
+	box-sizing: border-box;
 }
 
 /* Kontainer konten utama di dalam setiap section */
 .hero-content,
-.section-content-wrapper {
+.section-content-wrapper,
+.product-content-container {
+	/* Menambahkan kontainer produk baru */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	max-width: 1000px;
+	max-width: 1100px;
 	height: auto;
 	position: relative;
 	z-index: 3;
-	/* Padding akan ditambahkan oleh kelas .main-content-padding atau spesifik */
+	box-sizing: border-box;
 }
 .main-content-padding {
-	/* Kelas baru untuk padding konsisten */
 	padding: 2rem;
+}
+.product-content-container {
+	/* Kontainer khusus untuk produk dari HTML Anda */
+	padding: 2rem;
+	gap: 2rem; /* Gap dasar untuk mobile */
 }
 
 /* Styling spesifik untuk hero-section */
@@ -77,19 +82,21 @@ html {
 
 .hero-content {
 	color: white;
+	text-align: center; /* Pastikan konten hero tetap center */
 }
 
-.logo-container {
-	position: absolute;
-	top: 2rem;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 4;
-}
-.logo {
-	max-height: 50px;
+.hero-main-logo {
+	/* Styling untuk logo pengganti H1 */
+	max-height: 70px; /* Sesuaikan dengan ukuran H1 sebelumnya */
 	width: auto;
+	margin-bottom: 0.75rem; /* Mirip margin H1 */
 }
+@media (min-width: 768px) {
+	.hero-main-logo {
+		max-height: 90px; /* Lebih besar di desktop */
+	}
+}
+
 .hero-asset {
 	max-width: 70%;
 	max-height: 35vh;
@@ -113,89 +120,116 @@ html {
 }
 
 @media (min-width: 768px) {
-	.section-content-wrapper {
+	.section-content-wrapper,
+	.product-content-container {
 		flex-direction: row;
-		gap: 2.5rem;
+		gap: 3rem;
 		align-items: flex-start;
 	}
-	.main-content-padding {
-		padding: 2.5rem; /* Padding lebih besar untuk desktop */
+	.main-content-padding,
+	.product-content-container {
+		padding: 3rem 2.5rem;
 	}
 	.logo {
 		max-height: 60px;
+	} /* Logo di navigasi atas jika ada */
+}
+@media (min-width: 1024px) {
+	.main-content-padding,
+	.product-content-container {
+		padding: 3.5rem 4rem;
+	}
+	.section-content-wrapper,
+	.product-content-container {
+		gap: 4rem;
 	}
 }
 
-.product-image-container {
+/* Penyesuaian untuk layout produk dari HTML Anda */
+.product-image-wrapper {
+	/* Menggantikan .product-image-container */
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	max-width: 400px;
-	width: 100%;
-	align-self: center;
-	padding: 0.5rem;
+	width: 100%; /* Ambil lebar penuh di mobile */
+	max-width: 320px;
 }
+.product-text-wrapper {
+	/* Menggantikan .product-description */
+	width: 100%;
+	text-align: left; /* Teks di dalam wrapper ini rata kiri */
+}
+
+@media (min-width: 768px) {
+	.product-image-wrapper {
+		width: 40%;
+		max-width: 420px;
+		flex-shrink: 0;
+	}
+	.product-text-wrapper {
+		width: 60%;
+	}
+	.location-section .section-text-content,
+	.location-section .flex-shrink-0 {
+		flex: 1;
+	}
+}
+
 .product-detail-image {
 	max-width: 100%;
-	max-height: 50vh;
+	max-height: 60vh;
 	border-radius: 12px;
 	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 	object-fit: contain;
 }
 
-.product-description,
 .section-text-content {
+	/* Untuk section Lokasi dan Kontak */
 	text-align: left;
-	max-width: 500px;
+	max-width: 580px;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	padding: 0.5rem;
 }
-@media (min-width: 768px) {
-	.location-section .section-text-content,
-	.location-section .flex-shrink-0 {
-		flex: 1;
-	}
-	.product-detail-section .product-image-container,
-	.product-detail-section .product-description {
-		align-self: stretch;
-	}
+.contact-section .section-text-content {
+	/* Memastikan text-align center untuk kontak */
+	text-align: center;
+	align-items: center; /* Pusatkan form juga */
 }
 
 .main-title,
 .section-main-title {
-	font-size: 2rem;
+	font-size: 2.25rem;
+	line-height: 1.3;
 	font-weight: bold;
-	margin-bottom: 1rem;
+	margin-bottom: 1.25rem;
 	color: #f39c12;
+}
+@media (min-width: 768px) {
+	.main-title,
+	.section-main-title {
+		font-size: 2.75rem;
+		margin-bottom: 1.5rem;
+	}
 }
 
-.product-description p,
+.product-text-wrapper p,
 .section-text-content p {
 	font-size: 1rem;
-	line-height: 1.7;
-	margin-bottom: 1rem;
+	line-height: 1.75;
+	margin-bottom: 1.25rem;
 }
-.product-description ul {
-	list-style: none;
-	padding: 0;
-	margin-bottom: 1rem;
-}
-.product-description li {
-	font-size: 0.9rem;
-	margin-bottom: 0.6rem;
-	padding-left: 1.75rem;
-	position: relative;
-}
-.product-description li::before {
-	content: "☕";
-	position: absolute;
-	left: 0;
-	top: 1px;
-	color: #f39c12;
-	font-size: 1em;
+.product-text-wrapper ul {
+	list-style: disc;
+	padding-left: 1.5rem;
+	margin-bottom: 1.25rem;
+} /* Menggunakan list-disc default */
+.product-text-wrapper li {
+	font-size: 0.95rem;
+	margin-bottom: 0.75rem;
+	/* padding-left tidak perlu jika sudah list-disc */
 }
 
 .hero-main-title,
@@ -210,39 +244,46 @@ html {
 /* Navigasi Checkpoint fullPage.js */
 #fp-nav {
 	z-index: 1000 !important;
-	/* Pastikan fullPage.js menambahkan ini, jika tidak tambahkan manual saat inisialisasi */
+	right: 20px !important;
 }
 #fp-nav ul li {
-	margin: 20px 10px !important; /* Jarak antar item lebih besar */
-	display: flex; /* Untuk alignment tooltip */
-	align-items: center; /* Untuk alignment tooltip */
+	margin: 22px 0px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-end;
+	position: relative;
+	height: 20px;
 }
 
 #fp-nav ul li a span {
 	/* Bulatan pasif */
-	background: rgba(255, 255, 255, 0.4) !important;
+	background: rgba(255, 255, 255, 0.35) !important;
 	width: 12px !important;
 	height: 12px !important;
-	margin: -6px 0 0 -6px !important;
-	filter: blur(1.5px);
-	opacity: 0.7;
+	margin: 0 !important;
+	filter: blur(1px);
+	opacity: 0.65;
 	transition: all 0.3s ease-out;
-	display: block !important; /* Pastikan dot selalu block */
-	visibility: visible !important; /* Pastikan dot pasif terlihat */
+	display: block !important;
+	visibility: visible !important;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
 }
 #fp-nav ul li a:hover span {
 	/* Hover pada bulatan pasif */
 	background: rgba(255, 255, 255, 0.9) !important;
 	filter: blur(0px);
 	opacity: 1;
-	transform: scale(1.3);
+	transform: translateY(-50%) scale(1.35);
 }
 
-/* Sembunyikan dot ketika item navigasi aktif (tooltip akan muncul) */
 #fp-nav ul li.active a span {
+	/* Bulatan aktif (akan disembunyikan oleh JS) */
 	opacity: 0 !important;
 	visibility: hidden !important;
-	transform: scale(0.5) !important; /* Mengecil saat menghilang */
+	transform: translateY(-50%) scale(0.5) !important;
 	transition: opacity 0.2s ease-in, visibility 0s linear 0.2s,
 		transform 0.2s ease-in;
 }
@@ -250,34 +291,30 @@ html {
 #fp-nav ul li .fp-tooltip {
 	/* Teks nama halaman (tooltip) */
 	color: #ffffff !important;
-	background: rgba(
-		20,
-		20,
-		22,
-		0.9
-	) !important; /* Background lebih gelap dan solid */
+	background: rgba(25, 25, 28, 0.9) !important;
 	backdrop-filter: blur(5px);
 	padding: 8px 18px !important;
 	border-radius: 6px !important;
-	font-size: 14px !important;
+	font-size: 13px !important;
 	font-weight: 600;
-	top: 50% !important;
-	transform: translateY(-50%); /* Posisi vertikal tengah */
-	right: 35px !important; /* Jarak dari tepi kanan, sesuaikan dengan posisi #fp-nav */
+	position: absolute;
+	top: 50%;
+	right: 25px;
+	transform: translateY(-50%);
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity 0.3s ease-out, visibility 0s linear 0.3s,
 		transform 0.3s ease-out;
 	pointer-events: none;
 	white-space: nowrap;
-	/* Hapus transform translateX yang mungkin menyebabkan pergeseran awal */
+	z-index: 1;
 }
 
-#fp-nav ul li.active .fp-tooltip.fp-right {
+#fp-nav ul li.active .fp-tooltip {
+	/* Tooltip untuk item aktif */
 	opacity: 1 !important;
 	visibility: visible !important;
-	transform: translateY(-50%) translateX(0) !important; /* Pastikan tidak ada pergeseran horizontal */
-	transition-delay: 0.1s; /* Sedikit delay saat muncul */
+	transition-delay: 0.1s;
 	z-index: 1001;
 }
 

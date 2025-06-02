@@ -14,26 +14,22 @@
 	<body>
 		<div id="fullpage">
 			<div class="section hero-section" data-anchor="beranda">
-				<div class="logo-container">
+				<div class="hero-content main-content-padding">
 					<img
 						src="images/Wakey! Transparent BG Crop.png"
 						alt="Logo Wakey!"
-						class="logo"
-						onerror="this.onerror=null; this.src='https://placehold.co/200x60/121214/FFFFFF?text=Wakey!+Logo';"
+						class="hero-main-logo main-title"
+						onerror="this.onerror=null; this.src='https://placehold.co/300x100/121214/FFFFFF?text=Wakey!+Logo';"
 					/>
-				</div>
-				<div class="hero-content main-content-padding">
-					<h1 class="main-title text-4xl md:text-6xl font-bold leading-tight">
-						WAKEY!
-					</h1>
-					<p class="main-subtitle mt-2 text-xl md:text-3xl text-gray-300">
+
+					<p class="main-subtitle mt-3 text-xl md:text-3xl text-gray-300">
 						Solusi Kafein Praktis untuk Komunitas Aktif.
 					</p>
 					<p class="mt-1 text-lg md:text-xl text-yellow-400 font-semibold">
 						#NgopiTanpaSeduh - SEGERA HADIR!
 					</p>
 					<img
-						src="images/snack.png"
+						src="images/ChatGPT Image May 16 2025 01_09_25 AM.jpg"
 						alt="Kemasan Wakey! Snack Bar"
 						class="hero-asset"
 						onerror="this.onerror=null; this.src='https://placehold.co/600x400/1a1a1d/FFFFFF?text=Wakey!+Snack+Bar';"
@@ -47,64 +43,69 @@
 			</div>
 
 			<div class="section product-detail-section" data-anchor="produk">
-				<div class="section-content-wrapper main-content-padding">
-					<div class="product-image-container">
+				<div class="product-content-container main-content-padding">
+					<div class="product-image-wrapper">
 						<img
 							src="images/Coffee-Layered _Wakey!_ Snack Bar_edited_edited.jpg"
-							alt="Potongan Wakey! Snack Bar"
-							class="product-detail-image shadow-2xl"
+							alt="Snack Bar"
+							class="product-detail-image"
 							onerror="this.onerror=null; this.src='https://placehold.co/400x450/1f1f23/FFFFFF?text=Lapisan+Wakey!';"
 						/>
 					</div>
-					<div class="product-description">
-						<h2 class="section-main-title text-3xl md:text-4xl">
+					<div class="product-text-wrapper">
+						<h2
+							class="section-main-title text-3xl lg:text-4xl font-bold text-yellow-400 mb-5"
+						>
 							Energi Instan, Rasa Memikat - Segera Untukmu!
 						</h2>
 						<div id="original-description-container" class="text-gray-300">
-							<p class="mb-4">
+							<p class="mb-4 text-base lg:text-lg">
 								Wakey! akan segera menjadi snack bar berkafein setara 1 cangkir
 								kopi, solusi praktis untuk Anda yang aktif dan sibuk. Dibuat
-								dari bahan-bahan alami pilihan seperti
-								<strong class="text-yellow-300"
-									>oat, biji granola, madu, kacang, dan dark chocolate</strong
-								>, Wakey! tidak hanya akan menghilangkan kantuk dan memberi
-								energi, tapi juga mengenyangkan dengan rasa yang lezat.
+								dari bahan alami seperti
+								<span class="text-yellow-300 font-semibold"
+									>oat, granola, madu, kacang, dark chocolate</span
+								>.
 							</p>
-							<p class="mb-3 font-semibold text-gray-200">
+							<p class="mb-3 font-semibold text-gray-200 text-base lg:text-lg">
 								Manfaat Utama yang Bisa Kamu Nantikan:
 							</p>
-							<ul class="space-y-2 list-disc list-inside mb-5 pl-1">
+							<ul
+								class="text-sm lg:text-base text-gray-300 list-disc list-inside space-y-2 mb-5"
+							>
 								<li>
 									<strong class="text-yellow-400">Praktis & Cepat:</strong>
-									Nikmati kafein tanpa perlu seduh, kapan saja, di mana saja.
+									Nikmati kafein tanpa perlu seduh.
 								</li>
 								<li>
 									<strong class="text-yellow-400">Energi Tahan Lama:</strong>
-									Kombinasi kafein alami dan nutrisi seimbang.
+									Kombinasi kafein alami & nutrisi seimbang.
 								</li>
 								<li>
 									<strong class="text-yellow-400">Mengenyangkan:</strong> Cocok
-									sebagai pengganjal lapar di tengah kesibukan.
+									untuk kesibukan harianmu.
 								</li>
 								<li>
 									<strong class="text-yellow-400">Lezat & Sehat:</strong>
-									Alternatif kopi yang lebih bernutrisi.
+									Alternatif kopi yang bernutrisi.
 								</li>
 							</ul>
-							<p class="mb-3 font-semibold text-gray-200">
+							<p class="mt-4 text-sm lg:text-base font-semibold text-gray-200">
 								Varian Rasa yang Akan Datang (Contoh):
 							</p>
-							<ul class="space-y-2 list-disc list-inside mb-4 pl-1">
+							<ul
+								class="text-sm lg:text-base text-gray-300 list-disc list-inside space-y-2 mb-4"
+							>
 								<li>Mocha Crunch</li>
 								<li>Choco Espresso</li>
 								<li>Matcha Latte</li>
 								<li>Oat Caramel</li>
 							</ul>
-							<p class="text-sm text-gray-400">
+							<p class="text-xs lg:text-sm text-gray-400">
 								Detail harga akan diumumkan saat peluncuran.
 							</p>
 						</div>
-						<div class="mt-8 flex flex-col sm:flex-row gap-4">
+						<div class="flex flex-col sm:flex-row gap-4 mt-8">
 							<button
 								id="generate-poetic-desc-btn"
 								class="gemini-button w-full sm:w-auto justify-center"
@@ -113,7 +114,7 @@
 								<span class="loading-spinner" style="display: none"></span>
 							</button>
 							<button
-								class="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg w-full sm:w-auto"
+								class="bg-yellow-500 text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg w-full sm:w-auto"
 							>
 								INFO PELUNCURAN
 							</button>
@@ -129,7 +130,7 @@
 
 			<div class="section location-section" data-anchor="lokasi">
 				<div
-					class="section-content-wrapper main-content-padding items-center justify-around text-center md:text-left"
+					class="section-content-wrapper main-content-padding items-center justify-around md:text-left"
 				>
 					<div class="section-text-content md:max-w-lg">
 						<h2 class="section-main-title text-3xl md:text-4xl">
@@ -168,9 +169,9 @@
 
 			<div class="section contact-section" data-anchor="kontak">
 				<div
-					class="section-content-wrapper main-content-padding items-center justify-center text-center"
+					class="section-content-wrapper main-content-padding items-center justify-center"
 				>
-					<div class="section-text-content w-full max-w-lg">
+					<div class="section-text-content w-full max-w-lg text-center">
 						<h2 class="section-main-title text-3xl md:text-4xl mb-6">
 							Terhubung Dengan Kami
 						</h2>
