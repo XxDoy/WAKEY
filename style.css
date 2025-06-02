@@ -11,12 +11,12 @@ html {
 .section {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	align-items: center; /* Memusatkan anak secara horizontal */
+	justify-content: center; /* Memusatkan anak secara vertikal */
 	text-align: center;
 	position: relative;
 	overflow: hidden;
-	height: 100vh; /* Memastikan setiap section mengambil tinggi penuh viewport */
+	height: 100vh;
 }
 
 /* Styling spesifik untuk hero-section */
@@ -91,21 +91,19 @@ html {
 .product-detail-section {
 	background-color: #1f1f23;
 	color: white;
-	padding: 2rem;
 }
 .location-section {
 	background-color: #2a2a2e;
 	color: white;
-	padding: 2rem;
 }
 .contact-section {
 	background-color: #18181b;
 	color: white;
-	padding: 2rem;
 }
 
 .content-wrapper {
-	max-width: 800px;
+	max-width: 800px; /* Batas lebar untuk konten di lokasi dan kontak */
+	/* Padding ditambahkan via Tailwind di HTML (p-4) */
 }
 
 .product-detail-content,
@@ -118,23 +116,27 @@ html {
 	max-width: 1000px;
 	width: 100%;
 	height: auto;
+	/* Padding (p-4) ditambahkan di HTML untuk konsistensi */
 }
 @media (min-width: 768px) {
 	.product-detail-content,
 	.content-wrapper {
 		flex-direction: row;
 		gap: 2rem;
+		justify-content: center; /* Memastikan grup anak terpusat saat row */
 	}
 	.logo {
 		max-height: 60px;
 	}
 }
+
 .product-image-container {
-	flex: 1;
+	/* flex: 1; DIHAPUS agar tidak mengisi ruang, biarkan width/max-width yang mengatur */
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	max-width: 400px;
+	max-width: 400px; /* Atau sesuaikan dengan kebutuhan */
+	width: 100%; /* Agar responsif di layar kecil */
 }
 .product-detail-image {
 	max-width: 100%;
@@ -143,11 +145,13 @@ html {
 	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 	object-fit: contain;
 }
+
 .product-description,
 .section-text-content {
-	flex: 1;
+	/* flex: 1; DIHAPUS */
 	text-align: left;
-	max-width: 500px;
+	max-width: 500px; /* Atau sesuaikan dengan kebutuhan */
+	width: 100%; /* Agar responsif di layar kecil */
 }
 .section-title,
 .product-title {
@@ -179,7 +183,6 @@ html {
 	color: #f39c12;
 }
 
-/* Untuk memastikan teks terlihat sebelum GSAP mengambil alih */
 .hero-main-title,
 .hero-subtitle,
 .product-title,
@@ -188,6 +191,9 @@ html {
 }
 
 /* Navigasi Checkpoint */
+#fp-nav {
+	z-index: 1000 !important;
+}
 #fp-nav ul li {
 	margin: 18px 7px;
 }
@@ -241,7 +247,7 @@ html {
 
 /* Gemini API Feature Styling */
 .gemini-button {
-	background-color: #8a2be2; /* Warna ungu yang menarik */
+	background-color: #8a2be2;
 	color: white;
 	padding: 0.5rem 1rem;
 	border-radius: 0.5rem;
