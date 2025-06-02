@@ -3,21 +3,44 @@ body,
 html {
 	margin: 0;
 	padding: 0;
-	overflow: hidden; /* Dikelola oleh fullPage.js jika verticalCentered:false */
+	overflow: hidden; /* Dikelola oleh fullPage.js */
 	font-family: "Inter", sans-serif;
 }
 
 /* Styling dasar untuk setiap section fullPage.js */
-/* Dengan verticalCentered: false, .section adalah target langsung untuk flex centering */
 .section {
 	display: flex;
 	flex-direction: column;
-	align-items: center; /* Memusatkan anak langsungnya (mis: .product-detail-content) secara horizontal */
-	justify-content: center; /* Memusatkan anak langsungnya (mis: .product-detail-content) secara vertikal */
-	text-align: center; /* Untuk konten inline di dalamnya, jika tidak di-override */
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 	position: relative;
-	/* overflow: hidden; /* Bisa diaktifkan jika ada masalah, tapi biasanya tidak perlu untuk fullPage */
-	/* height: 100vh; /* fullPage.js akan mengatur ini */
+	/* height: 100vh; /* Dikelola oleh fullPage.js */
+	/* overflow: hidden; /* Dikelola oleh fullPage.js */
+}
+
+/* Kontainer konten utama di dalam setiap section */
+.hero-content,
+.section-content-wrapper {
+	/* Kelas baru untuk konsistensi */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	max-width: 1000px; /* Batas lebar umum, bisa disesuaikan per section jika perlu */
+	height: auto;
+	padding: 2rem; /* Padding dasar, sesuaikan dengan Tailwind jika perlu (misal p-6 md:p-10 lg:p-12) */
+	position: relative;
+	z-index: 3;
+}
+
+.hero-content {
+	color: white;
+}
+.section-content-wrapper {
+	/* Wrapper untuk section Produk, Lokasi, Kontak */
+	/* max-width bisa lebih spesifik di sini atau diatur oleh anak-anaknya */
 }
 
 /* Styling spesifik untuk hero-section */
@@ -57,38 +80,12 @@ html {
 	pointer-events: none;
 }
 
-/* Kontainer konten utama di dalam setiap section */
-.hero-content,
-.product-detail-content,
-.content-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	max-width: 1000px; /* Default max-width, bisa di-override */
-	height: auto;
-	padding: 1rem; /* Padding dasar, bisa disesuaikan dengan p-4, p-8 dari Tailwind di HTML */
-	position: relative; /* Agar z-index bekerja jika perlu */
-	z-index: 3; /* Konten di atas efek background section */
-}
-
-.hero-content {
-	color: white;
-}
-.product-detail-content {
-	/* max-width: 1000px; sudah di atas */
-}
-.content-wrapper {
-	max-width: 800px;
-}
-
 .logo-container {
 	position: absolute;
 	top: 2rem;
 	left: 50%;
 	transform: translateX(-50%);
-	z-index: 4; /* Di atas .hero-content jika .hero-content juga punya z-index */
+	z-index: 4;
 }
 .logo {
 	max-height: 50px;
@@ -100,7 +97,6 @@ html {
 	margin-top: 1rem;
 	margin-bottom: 1.5rem;
 	object-fit: contain;
-	/* z-index tidak perlu di sini jika .hero-content sudah punya z-index */
 }
 
 /* Styling untuk section lain */
@@ -117,19 +113,16 @@ html {
 	color: white;
 }
 
-/* Pengaturan layout untuk layar besar di dalam kontainer konten */
 @media (min-width: 768px) {
-	.product-detail-content,
-	.content-wrapper {
+	.section-content-wrapper {
+		/* Berlaku untuk .product-detail-content, .content-wrapper di Lokasi & Kontak */
 		flex-direction: row;
-		gap: 2rem;
-		/* align-items: center; sudah di aturan dasar, akan memusatkan item secara vertikal dalam baris */
-		/* justify-content: center; sudah di aturan dasar, akan memusatkan grup item jika total lebarnya < max-width */
+		gap: 2.5rem;
+		align-items: flex-start;
 	}
 	.hero-content,
-	.product-detail-content,
-	.content-wrapper {
-		padding: 2rem; /* Padding lebih besar untuk desktop */
+	.section-content-wrapper {
+		padding: 2.5rem; /* Padding lebih besar untuk desktop */
 	}
 	.logo {
 		max-height: 60px;
@@ -142,7 +135,8 @@ html {
 	align-items: center;
 	max-width: 400px;
 	width: 100%;
-	/* flex: 1; tidak lagi digunakan agar lebih mudah dipusatkan sebagai grup */
+	align-self: center;
+	padding: 0.5rem; /* Sedikit padding internal jika perlu */
 }
 .product-detail-image {
 	max-width: 100%;
@@ -157,17 +151,35 @@ html {
 	text-align: left;
 	max-width: 500px;
 	width: 100%;
-	/* flex: 1; tidak lagi digunakan */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0.5rem; /* Sedikit padding internal jika perlu */
+}
+@media (min-width: 768px) {
+	.location-section .section-text-content,
+	.location-section .flex-shrink-0 {
+		flex: 1;
+	}
+	.product-detail-section .product-image-container,
+	.product-detail-section .product-description {
+		align-self: stretch;
+	}
 }
 
-/* ... (sisa CSS untuk judul, teks, list, navigasi, dan Gemini tetap sama) ... */
-.section-title,
-.product-title {
+.main-title,
+.section-main-title {
+	/* Kelas umum untuk judul utama section */
 	font-size: 2rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
 	color: #f39c12;
 }
+.main-subtitle {
+	/* Kelas umum untuk subjudul */
+	/* Styling spesifik jika perlu */
+}
+
 .product-description p,
 .section-text-content p {
 	font-size: 1rem;
@@ -177,34 +189,42 @@ html {
 .product-description ul {
 	list-style: none;
 	padding: 0;
+	margin-bottom: 1rem;
 }
 .product-description li {
 	font-size: 0.9rem;
-	margin-bottom: 0.5rem;
-	padding-left: 1.5rem;
+	margin-bottom: 0.6rem;
+	padding-left: 1.75rem;
 	position: relative;
 }
 .product-description li::before {
 	content: "☕";
 	position: absolute;
 	left: 0;
+	top: 1px;
 	color: #f39c12;
+	font-size: 1em;
 }
 
 .hero-main-title,
 .hero-subtitle,
 .product-title,
-.section-title {
+.location-title,
+.contact-title,
+.section-main-title {
 	opacity: 1;
 }
 
+/* Navigasi Checkpoint fullPage.js */
 #fp-nav {
 	z-index: 1000 !important;
 }
 #fp-nav ul li {
 	margin: 18px 7px;
-}
+} /* Jarak antar item */
+
 #fp-nav ul li a span {
+	/* Bulatan pasif */
 	background: rgba(255, 255, 255, 0.3) !important;
 	width: 10px !important;
 	height: 10px !important;
@@ -214,51 +234,51 @@ html {
 	transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 #fp-nav ul li a:hover span {
+	/* Hover pada bulatan pasif */
 	background: rgba(255, 255, 255, 0.8) !important;
 	filter: blur(0px);
 	opacity: 1;
 	transform: scale(1.4);
 }
-#fp-nav ul li a.active span {
-	background: #f39c12 !important;
-	transform: scale(1.1);
-	opacity: 0 !important;
-	visibility: hidden !important;
-	filter: blur(0px);
-	transition: opacity 0.2s ease-out, visibility 0s linear 0.2s,
-		transform 0.2s ease-out, background 0.2s ease-out;
-}
+/* Bulatan aktif akan disembunyikan oleh JS dengan mengatur opacity & visibility */
+/* Jadi tidak perlu styling khusus #fp-nav ul li a.active span untuk menyembunyikan */
+
 #fp-nav ul li .fp-tooltip {
+	/* Teks nama halaman (tooltip) */
 	color: #ffffff !important;
-	background: rgba(30, 30, 30, 0.7) !important;
-	backdrop-filter: blur(3px);
-	padding: 7px 15px !important;
-	border-radius: 5px !important;
-	font-size: 13px !important;
+	background: rgba(30, 30, 30, 0.85) !important; /* Background lebih solid */
+	backdrop-filter: blur(4px);
+	padding: 8px 16px !important; /* Padding lebih besar */
+	border-radius: 6px !important;
+	font-size: 14px !important; /* Font lebih besar */
 	font-weight: 600;
 	top: 50% !important;
 	white-space: nowrap;
-	opacity: 0;
+	opacity: 0; /* Awalnya disembunyikan */
 	visibility: hidden;
-	transform: translateY(-50%) translateX(15px);
-	transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
-		visibility 0s linear 0.4s, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+	transform: translateY(-50%) translateX(20px); /* Mulai dari lebih kanan */
+	transition: opacity 0.3s ease-out, visibility 0s linear 0.3s,
+		transform 0.3s ease-out;
+	pointer-events: none; /* Agar tidak mengganggu klik pada dot jika tumpang tindih */
 }
+
+/* Styling untuk tooltip yang aktif (ketika li.active) */
 #fp-nav ul li.active .fp-tooltip.fp-right {
 	opacity: 1 !important;
 	visibility: visible !important;
-	transform: translateY(-50%) translateX(0px) !important;
-	transition-delay: 0.1s;
+	transform: translateY(-50%) translateX(0px) !important; /* Muncul ke posisi normal */
+	transition-delay: 0.05s; /* Delay singkat saat muncul */
 	z-index: 1001;
 }
 
+/* Gemini API Feature Styling */
 .gemini-button {
 	background-color: #8a2be2;
 	color: white;
-	padding: 0.5rem 1rem;
+	padding: 0.6rem 1.2rem;
 	border-radius: 0.5rem;
 	font-weight: 600;
-	margin-top: 1rem;
+	margin-top: 1.25rem;
 	transition: background-color 0.3s ease;
 	cursor: pointer;
 	border: none;
@@ -268,7 +288,7 @@ html {
 	background-color: #7b1fa2;
 }
 .gemini-output {
-	margin-top: 1rem;
+	margin-top: 1.25rem;
 	padding: 1rem;
 	background-color: rgba(255, 255, 255, 0.05);
 	border-radius: 0.5rem;

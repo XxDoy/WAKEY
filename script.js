@@ -8,31 +8,26 @@ document.addEventListener("DOMContentLoaded", function () {
 		navigation: true,
 		navigationPosition: "right",
 		navigationTooltips: ["Beranda", "Produk", "Lokasi", "Kontak"],
-		showActiveTooltip: false,
+		showActiveTooltip: true, // Biarkan fullPage.js yang mengelola ini untuk teks statis
 		anchors: ["beranda", "produk", "lokasi", "kontak"],
 		licenseKey: "OPEN-SOURCE-GPLV3-LICENSE",
-		verticalCentered: false, // Menonaktifkan pemusatan vertikal bawaan fullPage.js
+		verticalCentered: false, // PENTING: Biarkan CSS Flexbox yang menangani centering
 
 		onLeave: function (origin, destination, direction) {
 			const leavingSection = origin.item;
 			const enteringSection = destination.item;
 
+			// Animasi untuk elemen teks utama yang keluar
 			let leavingTextElements = [];
-			if (leavingSection.querySelector(".hero-main-title"))
+			if (leavingSection.querySelector(".main-title"))
+				leavingTextElements.push(leavingSection.querySelector(".main-title"));
+			if (leavingSection.querySelector(".main-subtitle"))
 				leavingTextElements.push(
-					leavingSection.querySelector(".hero-main-title")
+					leavingSection.querySelector(".main-subtitle")
 				);
-			if (leavingSection.querySelector(".hero-subtitle"))
+			if (leavingSection.querySelector(".section-main-title"))
 				leavingTextElements.push(
-					leavingSection.querySelector(".hero-subtitle")
-				);
-			if (leavingSection.querySelector(".product-title"))
-				leavingTextElements.push(
-					leavingSection.querySelector(".product-title")
-				);
-			if (leavingSection.querySelector(".section-title"))
-				leavingTextElements.push(
-					leavingSection.querySelector(".section-title")
+					leavingSection.querySelector(".section-main-title")
 				);
 
 			leavingTextElements.forEach((el) => {
@@ -40,22 +35,17 @@ document.addEventListener("DOMContentLoaded", function () {
 					gsap.to(el, { opacity: 0, y: -60, duration: 0.6, ease: "power2.in" });
 			});
 
+			// Animasi untuk elemen teks utama yang masuk
 			let enteringTextElements = [];
-			if (enteringSection.querySelector(".hero-main-title"))
+			if (enteringSection.querySelector(".main-title"))
+				enteringTextElements.push(enteringSection.querySelector(".main-title"));
+			if (enteringSection.querySelector(".main-subtitle"))
 				enteringTextElements.push(
-					enteringSection.querySelector(".hero-main-title")
+					enteringSection.querySelector(".main-subtitle")
 				);
-			if (enteringSection.querySelector(".hero-subtitle"))
+			if (enteringSection.querySelector(".section-main-title"))
 				enteringTextElements.push(
-					enteringSection.querySelector(".hero-subtitle")
-				);
-			if (enteringSection.querySelector(".product-title"))
-				enteringTextElements.push(
-					enteringSection.querySelector(".product-title")
-				);
-			if (enteringSection.querySelector(".section-title"))
-				enteringTextElements.push(
-					enteringSection.querySelector(".section-title")
+					enteringSection.querySelector(".section-main-title")
 				);
 
 			enteringTextElements.forEach((el) => {
@@ -67,24 +57,22 @@ document.addEventListener("DOMContentLoaded", function () {
 					);
 			});
 
-			const originTooltip = document
-				.querySelector(`#fp-nav ul li a[href="#${origin.anchor}"]`)
-				?.closest("li")
-				?.querySelector(".fp-tooltip");
+			// Animasi untuk Navigasi Checkpoint (Dot menjadi jelas saat transisi)
+			const allDots = document.querySelectorAll("#fp-nav ul li a span");
+			allDots.forEach((dot) => {
+				gsap.to(dot, {
+					filter: "blur(1px)",
+					opacity: 0.6,
+					scale: 1,
+					duration: 0.3,
+				}); // Reset semua dot ke blur
+			});
+
 			const destinationDot = document.querySelector(
 				`#fp-nav ul li a[href="#${destination.anchor}"] span`
 			);
-
-			if (originTooltip) {
-				gsap.to(originTooltip, {
-					opacity: 0,
-					x: 15,
-					visibility: "hidden",
-					duration: 0.3,
-					ease: "power1.in",
-				});
-			}
 			if (destinationDot) {
+				// Buat dot tujuan menjadi jelas
 				gsap.to(destinationDot, {
 					filter: "blur(0px)",
 					opacity: 1,
@@ -96,47 +84,48 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 		},
 		afterLoad: function (origin, destination, direction) {
+			// Memastikan elemen di section yang baru dimuat terlihat jelas
 			const currentSection = destination.item;
 			let currentTextElements = [];
-			if (currentSection.querySelector(".hero-main-title"))
+			if (currentSection.querySelector(".main-title"))
+				currentTextElements.push(currentSection.querySelector(".main-title"));
+			if (currentSection.querySelector(".main-subtitle"))
 				currentTextElements.push(
-					currentSection.querySelector(".hero-main-title")
+					currentSection.querySelector(".main-subtitle")
 				);
-			if (currentSection.querySelector(".hero-subtitle"))
+			if (currentSection.querySelector(".section-main-title"))
 				currentTextElements.push(
-					currentSection.querySelector(".hero-subtitle")
-				);
-			if (currentSection.querySelector(".product-title"))
-				currentTextElements.push(
-					currentSection.querySelector(".product-title")
-				);
-			if (currentSection.querySelector(".section-title"))
-				currentTextElements.push(
-					currentSection.querySelector(".section-title")
+					currentSection.querySelector(".section-main-title")
 				);
 
 			currentTextElements.forEach((el) => {
 				if (el) gsap.to(el, { opacity: 1, y: 0, duration: 0 });
 			});
 
+			// Mengatur tampilan dot dan tooltip setelah section dimuat
 			const navItems = document.querySelectorAll("#fp-nav ul li");
 			navItems.forEach((item) => {
 				const tooltip = item.querySelector(".fp-tooltip");
 				const dot = item.querySelector("a span");
 				if (item.classList.contains("active")) {
-					if (tooltip)
+					if (tooltip) {
+						// Tampilkan tooltip (nama page)
 						gsap.to(tooltip, {
 							opacity: 1,
 							x: 0,
 							visibility: "visible",
-							duration: 0.4,
-							delay: 0.1,
+							duration: 0.3,
+							delay: 0.05,
 							ease: "power2.out",
 						});
-					if (dot)
-						gsap.to(dot, { opacity: 0, visibility: "hidden", duration: 0.2 });
+					}
+					if (dot) {
+						// Sembunyikan dot
+						gsap.to(dot, { opacity: 0, visibility: "hidden", duration: 0.15 });
+					}
 				} else {
-					if (tooltip)
+					if (tooltip) {
+						// Sembunyikan tooltip
 						gsap.to(tooltip, {
 							opacity: 0,
 							x: 15,
@@ -144,26 +133,30 @@ document.addEventListener("DOMContentLoaded", function () {
 							duration: 0.3,
 							ease: "power1.in",
 						});
-					if (dot)
+					}
+					if (dot) {
+						// Tampilkan dot (dengan blur)
 						gsap.to(dot, {
 							filter: "blur(1px)",
 							opacity: 0.6,
 							scale: 1,
+							visibility: "visible",
 							duration: 0.3,
 						});
+					}
 				}
 			});
 		},
 	});
 
 	// --- Gemini API Integration ---
-	// ... (Kode Gemini API tetap sama) ...
 	const apiKey = "";
 
 	async function callGeminiAPI(prompt, outputElement, loadingSpinner) {
 		if (!prompt.trim()) {
 			outputElement.textContent = "Harap masukkan prompt atau teks yang valid.";
 			outputElement.style.display = "block";
+			loadingSpinner.style.display = "none";
 			return;
 		}
 
@@ -224,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		? poeticDescBtn.querySelector(".loading-spinner")
 		: null;
 
-	if (poeticDescBtn && poeticDescSpinner) {
+	if (poeticDescBtn && poeticDescSpinner && poeticDescOutput) {
 		poeticDescBtn.addEventListener("click", function () {
 			const originalDescContainer = document.getElementById(
 				"original-description-container"
@@ -237,17 +230,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 
 			if (!originalText.trim()) {
-				if (poeticDescOutput) {
-					poeticDescOutput.textContent =
-						"Deskripsi produk asli tidak ditemukan.";
-					poeticDescOutput.style.display = "block";
-				}
+				poeticDescOutput.textContent = "Deskripsi produk asli tidak ditemukan.";
+				poeticDescOutput.style.display = "block";
 				return;
 			}
 
 			const prompt = `Anda adalah seorang penulis puisi kuliner handal. Ubahlah deskripsi produk berikut menjadi sebuah puisi yang indah, menggugah selera, dan elegan untuk snack bar bernama Wakey!:\n\n${originalText.trim()}`;
-			if (poeticDescOutput)
-				callGeminiAPI(prompt, poeticDescOutput, poeticDescSpinner);
+			callGeminiAPI(prompt, poeticDescOutput, poeticDescSpinner);
 		});
 	}
 
@@ -261,7 +250,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		? assistMessageBtn.querySelector(".loading-spinner")
 		: null;
 
-	if (assistMessageBtn && contactMessageTextarea && assistMessageSpinner) {
+	if (
+		assistMessageBtn &&
+		contactMessageTextarea &&
+		assistMessageSpinner &&
+		assistedMessageOutput
+	) {
 		assistMessageBtn.addEventListener("click", function () {
 			const userName = contactNameInput ? contactNameInput.value.trim() : "";
 			const userKeywords = contactMessageTextarea.value.trim();
@@ -277,8 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				}" ingin mengirim pesan tetapi belum menulis apa pun. \n\nBantu susun draf pesan umum yang sopan untuk menanyakan tentang produk Wakey!, menyampaikan saran, atau menjajaki peluang kemitraan. Tawarkan beberapa opsi awal atau pertanyaan pembuka.`;
 			}
 
-			if (assistedMessageOutput)
-				callGeminiAPI(prompt, assistedMessageOutput, assistMessageSpinner);
+			callGeminiAPI(prompt, assistedMessageOutput, assistMessageSpinner);
 		});
 	}
 });
