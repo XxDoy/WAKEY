@@ -47,128 +47,146 @@
 
 			<div class="section product-detail-section" data-anchor="produk">
 				<div class="product-detail-content">
-					<div class="product-image-container">
+					<div class="product-image-container p-4">
 						<img
 							src="images/Coffee-Layered _Wakey!_ Snack Bar_edited_edited.jpg"
 							alt="Potongan Wakey! Snack Bar"
-							class="product-detail-image"
-							onerror="this.onerror=null; this.src='https://placehold.co/400x400/1f1f23/FFFFFF?text=Lapisan+Wakey!';"
+							class="product-detail-image shadow-2xl"
+							onerror="this.onerror=null; this.src='https://placehold.co/400x450/1f1f23/FFFFFF?text=Lapisan+Wakey!';"
 						/>
 					</div>
-					<div class="product-description">
-						<h2 class="product-title">Setiap Gigitan Penuh Energi</h2>
-						<div id="original-description-container">
-							<p>
+					<div class="product-description p-4">
+						<h2 class="product-title text-3xl md:text-4xl">
+							Setiap Gigitan Penuh Energi
+						</h2>
+						<div id="original-description-container" class="text-gray-300">
+							<p class="mb-3">
 								Wakey! dirancang untuk menemani harimu yang padat. Dengan
 								kombinasi sempurna antara rasa dan energi, setiap lapisan
 								memberikan pengalaman unik yang tak terlupakan.
 							</p>
-							<ul>
+							<ul class="space-y-1">
 								<li>
-									Lapisan Karamel Lembut: Manis yang pas, meleleh di mulut.
+									<span class="text-yellow-400 mr-2">☕</span>Lapisan Karamel
+									Lembut: Manis yang pas, meleleh di mulut.
 								</li>
 								<li>
-									Nougat Kopi Pilihan: Tekstur kenyal dengan aroma kopi asli.
+									<span class="text-yellow-400 mr-2">☕</span>Nougat Kopi
+									Pilihan: Tekstur kenyal dengan aroma kopi asli.
 								</li>
 								<li>
-									Krispi Sereal Gurih: Memberikan sensasi renyah yang memuaskan.
+									<span class="text-yellow-400 mr-2">☕</span>Krispi Sereal
+									Gurih: Memberikan sensasi renyah yang memuaskan.
 								</li>
 								<li>
-									Balutan Cokelat Premium: Melengkapi setiap gigitan dengan
-									kemewahan.
+									<span class="text-yellow-400 mr-2">☕</span>Balutan Cokelat
+									Premium: Melengkapi setiap gigitan dengan kemewahan.
 								</li>
 							</ul>
 						</div>
-						<button id="generate-poetic-desc-btn" class="gemini-button">
-							✨ Hasilkan Deskripsi Puitis
-							<span class="loading-spinner" style="display: none"></span>
-						</button>
+						<div class="mt-6 flex flex-col sm:flex-row gap-3">
+							<button
+								id="generate-poetic-desc-btn"
+								class="gemini-button w-full sm:w-auto justify-center"
+							>
+								✨ Hasilkan Deskripsi Puitis
+								<span class="loading-spinner" style="display: none"></span>
+							</button>
+							<button
+								class="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg w-full sm:w-auto"
+							>
+								LIHAT VARIAN RASA
+							</button>
+						</div>
 						<div
 							id="poetic-description-output"
 							class="gemini-output"
 							style="display: none"
 						></div>
-						<button
-							class="mt-6 bg-yellow-500 text-gray-900 font-semibold py-3 px-6 md:px-8 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
-						>
-							LIHAT VARIAN RASA
-						</button>
 					</div>
 				</div>
 			</div>
 
 			<div class="section location-section" data-anchor="lokasi">
-				<div class="content-wrapper items-center justify-center text-center">
-					<div class="section-text-content text-center md:text-left">
+				<div
+					class="content-wrapper items-center justify-around text-center md:text-left p-4"
+				>
+					<div class="section-text-content md:max-w-lg">
 						<h2 class="section-title text-3xl md:text-4xl">Temukan Kami</h2>
 						<p class="mt-4 text-lg md:text-xl text-gray-300">
 							Wakey! Snack Bar tersedia di berbagai minimarket dan supermarket
 							terdekat di kota Anda. Kunjungi juga kafe partner kami untuk
 							menikmati Wakey! dengan secangkir kopi pilihan.
 						</p>
-						<p class="mt-2 text-gray-400">
+						<p class="mt-3 text-gray-400">
 							Cek peta di bawah untuk menemukan lokasi penjualan terdekat!
 						</p>
 						<button
-							class="mt-6 bg-yellow-500 text-gray-900 font-semibold py-3 px-6 md:px-8 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
+							class="mt-8 bg-yellow-500 text-gray-900 font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
 						>
 							CARI LOKASI
 						</button>
 					</div>
-					<div class="mt-8 md:mt-0 md:ml-8 flex-shrink-0">
+					<div class="mt-8 md:mt-0 flex-shrink-0">
 						<img
-							src="https://placehold.co/400x300/2a2a2e/FFFFFF?text=Peta+Lokasi+Wakey!"
+							src="https://placehold.co/450x350/2a2a2e/FFFFFF?text=Peta+Interaktif+Wakey!"
 							alt="Peta Lokasi Wakey!"
-							class="rounded-lg shadow-lg"
+							class="rounded-lg shadow-2xl"
 						/>
 					</div>
 				</div>
 			</div>
 
 			<div class="section contact-section" data-anchor="kontak">
-				<div class="content-wrapper items-center justify-center text-center">
-					<div class="section-text-content text-center">
-						<h2 class="section-title text-3xl md:text-4xl">Hubungi Kami</h2>
-						<p class="mt-4 text-lg md:text-xl text-gray-300">
+				<div
+					class="content-wrapper items-center justify-center text-center p-4"
+				>
+					<div class="section-text-content w-full max-w-lg">
+						<h2 class="section-title text-3xl md:text-4xl mb-6">
+							Hubungi Kami
+						</h2>
+						<p class="mt-4 text-lg md:text-xl text-gray-300 mb-8">
 							Punya pertanyaan, saran, atau ingin bermitra dengan Wakey!? Jangan
 							ragu untuk menghubungi kami.
 						</p>
-						<form id="contact-form" class="mt-8 max-w-md mx-auto">
-							<div class="mb-4">
+						<form id="contact-form" class="w-full">
+							<div class="mb-5">
 								<input
 									type="text"
 									id="contact-name"
 									placeholder="Nama Anda"
-									class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-yellow-500 outline-none"
+									class="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-colors"
 								/>
 							</div>
-							<div class="mb-4">
+							<div class="mb-5">
 								<input
 									type="email"
 									id="contact-email"
 									placeholder="Email Anda"
-									class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-yellow-500 outline-none"
+									class="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-colors"
 								/>
 							</div>
-							<div class="mb-4">
+							<div class="mb-5">
 								<textarea
 									id="contact-message"
 									placeholder="Pesan Anda..."
-									rows="4"
-									class="w-full p-3 rounded bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-yellow-500 outline-none"
+									rows="5"
+									class="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-colors"
 								></textarea>
 							</div>
-							<div class="flex items-center justify-between">
+							<div
+								class="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4"
+							>
 								<button
 									type="submit"
-									class="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
+									class="w-full sm:w-auto bg-yellow-500 text-gray-900 font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 text-base md:text-lg"
 								>
 									KIRIM PESAN
 								</button>
 								<button
 									type="button"
 									id="assist-message-btn"
-									class="gemini-button"
+									class="w-full sm:w-auto gemini-button justify-center"
 								>
 									✨ Bantu Tulis
 									<span class="loading-spinner" style="display: none"></span>
@@ -176,7 +194,7 @@
 							</div>
 							<div
 								id="assisted-message-output"
-								class="gemini-output mt-4"
+								class="gemini-output mt-6"
 								style="display: none"
 							></div>
 						</form>
